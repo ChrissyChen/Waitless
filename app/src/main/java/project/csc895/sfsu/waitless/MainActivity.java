@@ -1,17 +1,12 @@
 package project.csc895.sfsu.waitless;
 
 import android.content.Intent;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import java.lang.ref.WeakReference;
+import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +17,9 @@ public class MainActivity extends AppCompatActivity {
 //    private TextInputLayout textInputLayout;
 //    private EditText editText;
 
-    private EditText searchEditText;
+    private EditText mSearchEditText;
+    private ImageButton mChineseButton, mItalianButton, mJapaneseButton,
+                        mAmericanButton, mThaiButton, mViewAllButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +27,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Log.d(TAG, "1");
-        //startActivity(new Intent(MainActivity.this, SearchRestaurantActivity.class));
 
-        searchEditText = (EditText) findViewById(R.id.searchEditText);
-        searchEditText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+        mSearchEditText = (EditText)findViewById(R.id.searchEditText);
+        mSearchEditText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
@@ -43,15 +39,40 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mChineseButton = (ImageButton)findViewById(R.id.chineseCuisineButton);
+        showSearchPageOnClick(mChineseButton);
+
+        mItalianButton = (ImageButton)findViewById(R.id.italianCuisineButton);
+        showSearchPageOnClick(mItalianButton);
+
+        mJapaneseButton = (ImageButton)findViewById(R.id.japaneseCuisineButton);
+        showSearchPageOnClick(mJapaneseButton);
+
+        mAmericanButton = (ImageButton)findViewById(R.id.americanCuisineButton);
+        showSearchPageOnClick(mAmericanButton);
+
+        mThaiButton = (ImageButton)findViewById(R.id.thaiCuisineButton);
+        showSearchPageOnClick(mThaiButton);
+
+        mViewAllButton = (ImageButton)findViewById(R.id.viewAllCuisineButton);
+        showSearchPageOnClick(mViewAllButton);
 
 
-        //startActivity(new Intent(this, SearchRestaurantActivity.class));
 
 //        textInputLayout = (TextInputLayout) findViewById(R.id.text_input_layout);
 //        editText = (EditText) findViewById(R.id.edit_text);
 //
 //        textInputLayout.setHint(getString(R.string.hint));
 //        editText.setOnEditorActionListener(ActionListener.newInstance(this));
+    }
+
+    private void showSearchPageOnClick(View mView) {
+        mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SearchRestaurantActivity.class));
+            }
+        });
     }
 
 //    private boolean shouldShowError() {
