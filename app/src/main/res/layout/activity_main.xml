@@ -5,9 +5,6 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="project.csc895.sfsu.waitless.MainActivity">
 
 
@@ -45,6 +42,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="horizontal">
@@ -53,8 +52,8 @@
                 android:id="@+id/cityTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/city"
-                android:textSize="20dp"
+                android:text="@string/SanFrancisco"
+                android:textSize="16sp"
                 android:visibility="visible" />
 
             <ImageButton
@@ -62,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_weight="1"
+                android:layout_marginStart="10dp"
                 android:background="@drawable/button_ripple"
                 android:src="@drawable/ic_search_black_24px" />
 
@@ -70,16 +69,18 @@
                 android:id="@+id/searchEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/hint"
-                android:inputType="textPersonName" />
+                android:textSize="16sp"
+                android:inputType="text" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
             android:orientation="vertical">
 
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -87,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="8dp"
                 card_view:cardCornerRadius="4dp">
 
                 <TableLayout
@@ -100,36 +101,39 @@
                             android:id="@+id/chineseCuisineButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="0dp"
-                            android:layout_margin="0dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="12dp"
                             android:layout_weight="1"
                             android:scaleType="fitCenter"
                             android:adjustViewBounds="true"
-                            app:srcCompat="@drawable/chinese_icon"
+                            app:srcCompat="@drawable/cuisine_chinese_icon"
                             android:background="@drawable/button_ripple"/>
 
                         <ImageButton
                             android:id="@+id/italianCuisineButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="0dp"
-                            android:layout_margin="0dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="12dp"
                             android:layout_weight="1"
                             android:scaleType="fitCenter"
                             android:adjustViewBounds="true"
-                            app:srcCompat="@drawable/italian_icon"
+                            app:srcCompat="@drawable/cuisine_italian_icon"
                             android:background="@drawable/button_ripple"/>
 
                         <ImageButton
                             android:id="@+id/japaneseCuisineButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="0dp"
-                            android:layout_margin="0dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="12dp"
                             android:layout_weight="1"
                             android:scaleType="fitCenter"
                             android:adjustViewBounds="true"
-                            app:srcCompat="@drawable/japanese_icon"
+                            app:srcCompat="@drawable/cuisine_japanese_icon"
                             android:background="@drawable/button_ripple"/>
                     </TableRow>
 
@@ -138,39 +142,41 @@
                             android:id="@+id/americanCuisineButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="0dp"
-                            android:layout_margin="0dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="12dp"
                             android:layout_weight="1"
                             android:scaleType="fitCenter"
                             android:adjustViewBounds="true"
-                            app:srcCompat="@drawable/american_icon"
+                            app:srcCompat="@drawable/cuisine_american_icon"
                             android:background="@drawable/button_ripple"/>
 
                         <ImageButton
                             android:id="@+id/thaiCuisineButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="0dp"
-                            android:layout_margin="0dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="12dp"
                             android:layout_weight="1"
                             android:scaleType="fitCenter"
                             android:adjustViewBounds="true"
-                            app:srcCompat="@drawable/thai_icon"
+                            app:srcCompat="@drawable/cuisine_thai_icon"
                             android:background="@drawable/button_ripple"/>
 
                         <ImageButton
                             android:id="@+id/viewAllCuisineButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="0dp"
-                            android:layout_margin="0dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="12dp"
                             android:layout_weight="1"
                             android:scaleType="fitCenter"
                             android:adjustViewBounds="true"
-                            app:srcCompat="@drawable/view_all_icon"
-                            android:background="@drawable/button_ripple"/>
+                            app:srcCompat="@drawable/cuisine_viewall_icon"
+                            android:background="@drawable/button_ripple" />
                     </TableRow>
-
                 </TableLayout>
 
 
@@ -180,7 +186,7 @@
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/hotRestaurantCardView"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 card_view:cardCornerRadius="4dp">
 
@@ -193,4 +199,15 @@
 
         </LinearLayout>
     </LinearLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemIconTint="@drawable/nav_item_color_state"
+        app:itemTextColor="@drawable/nav_item_color_state"
+        app:itemBackground="@color/grey"
+        app:menu="@menu/bottom_navigation_menu"/>
+
 </RelativeLayout>

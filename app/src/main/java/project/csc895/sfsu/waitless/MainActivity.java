@@ -1,9 +1,12 @@
 package project.csc895.sfsu.waitless;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -20,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText mSearchEditText;
     private ImageButton mChineseButton, mItalianButton, mJapaneseButton,
                         mAmericanButton, mThaiButton, mViewAllButton;
+    private BottomNavigationView mBottomNavigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +62,25 @@ public class MainActivity extends AppCompatActivity {
         mViewAllButton = (ImageButton)findViewById(R.id.viewAllCuisineButton);
         showSearchPageOnClick(mViewAllButton);
 
+        mBottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        mBottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.action_home:
+                                startActivity(new Intent(MainActivity.this, MainActivity.class));
+                                return true;
+                            case R.id.action_search:
+                                startActivity(new Intent(MainActivity.this, SearchRestaurantActivity.class));
+                                return true;
+                            case R.id.action_profile:
 
+                                return true;
+                        }
+                        return false;
+                    }
+                });
 
 //        textInputLayout = (TextInputLayout) findViewById(R.id.text_input_layout);
 //        editText = (EditText) findViewById(R.id.edit_text);
