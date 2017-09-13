@@ -11,17 +11,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Main Activity";
-
-    private EditText mSearchEditText;
-    private ImageButton mChineseButton, mItalianButton, mJapaneseButton,
-            mAmericanButton, mThaiButton, mViewAllButton;
-    private BottomNavigationView mBottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,71 +24,11 @@ public class MainActivity extends AppCompatActivity {
         setupBottomNavigationView();
         Log.d(TAG, "1");
 
-//        mSearchEditText = (EditText)findViewById(R.id.searchEditText);
-//        mSearchEditText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (hasFocus) {
-//                    Log.d(TAG, "2");
-//                    startActivity(new Intent(MainActivity.this, SearchRestaurantActivity.class));
-//                }
-//            }
-//        });
+//        textInputLayout = (TextInputLayout) findViewById(R.id.text_input_layout);
+//        editText = (EditText) findViewById(R.id.edit_text);
 //
-//        mChineseButton = (ImageButton)findViewById(R.id.chineseCuisineButton);
-//        showSearchPageOnClick(mChineseButton);
-//
-//        mItalianButton = (ImageButton)findViewById(R.id.italianCuisineButton);
-//        showSearchPageOnClick(mItalianButton);
-//
-//        mJapaneseButton = (ImageButton)findViewById(R.id.japaneseCuisineButton);
-//        showSearchPageOnClick(mJapaneseButton);
-//
-//        mAmericanButton = (ImageButton)findViewById(R.id.americanCuisineButton);
-//        showSearchPageOnClick(mAmericanButton);
-//
-//        mThaiButton = (ImageButton)findViewById(R.id.thaiCuisineButton);
-//        showSearchPageOnClick(mThaiButton);
-//
-//        mViewAllButton = (ImageButton)findViewById(R.id.viewAllCuisineButton);
-//        showSearchPageOnClick(mViewAllButton);
-//
-//        mBottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
-//        mBottomNavigationView.setOnNavigationItemSelectedListener(
-//                new BottomNavigationView.OnNavigationItemSelectedListener() {
-//                    @Override
-//                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                        switch (item.getItemId()) {
-//                            case R.id.action_home:
-//                                startActivity(new Intent(MainActivity.this, MainActivity.class));
-//                                return true;
-//                            case R.id.action_search:
-//                                startActivity(new Intent(MainActivity.this, SearchRestaurantActivity.class));
-//                                return true;
-//                            case R.id.action_profile:
-//
-//                                return true;
-//                        }
-//                        return false;
-//                    }
-//                });
-//
-////        textInputLayout = (TextInputLayout) findViewById(R.id.text_input_layout);
-////        editText = (EditText) findViewById(R.id.edit_text);
-////
-////        textInputLayout.setHint(getString(R.string.hint));
-////        editText.setOnEditorActionListener(ActionListener.newInstance(this));
-//    }
-//
-//    private void showSearchPageOnClick(View mView) {
-//        mView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(MainActivity.this, SearchRestaurantActivity.class));
-//            }
-//        });
-//    }
-
+//        textInputLayout.setHint(getString(R.string.hint));
+//        editText.setOnEditorActionListener(ActionListener.newInstance(this));
 
 //    private boolean shouldShowError() {
 //        int textLength = editText.getText().length();
@@ -165,13 +98,11 @@ public class MainActivity extends AppCompatActivity {
                 // Action to perform when Home Menu item is selected.
                 pushFragment(new HomeFragment());
                 break;
-            case R.id.action_search:
-
-
+            case R.id.action_nearby:
+                pushFragment(new NearbyFragment());
                 break;
             case R.id.action_profile:
-                // Action to perform when Account Menu item is selected.
-
+                pushFragment(new ProfileFragment());
                 break;
         }
     }

@@ -1,11 +1,20 @@
 <resources>
     <string name="app_name">Waitless</string>
+
+    <!--for textinputlayout-->
     <item name="visible" type="id"/>
     <item name="masked" type="id"/>
-    <string name="hint">Search a Restaurant</string>
     <string name="error">Please enter at least 4 characters</string>
-    <string name="SanFrancisco">San Francisco</string>
+
     <string name="home">Home</string>
-    <string name="search">Search</string>
+    <string name="SanFrancisco">San Francisco</string>
+    <string name="hint">Search a Restaurant</string>
+
+    <string name="nearby">Nearby</string>
+
     <string name="profile">Profile</string>
+
+    <string name="search">Search</string>
+    <string name="hint_search">Type a restaurant or a cuisine</string>
+    <string name="not_found">No restaurant found!</string>
 </resources>

@@ -7,9 +7,9 @@
         android:title="@string/home"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_search"
-        android:icon="@drawable/ic_search_black_24px"
-        android:title="@string/search"
+        android:id="@+id/action_nearby"
+        android:icon="@drawable/ic_location_on_black_24px"
+        android:title="@string/nearby"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_profile"
