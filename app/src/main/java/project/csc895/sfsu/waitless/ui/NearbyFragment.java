@@ -1,4 +1,4 @@
-package project.csc895.sfsu.waitless;
+package project.csc895.sfsu.waitless.ui;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import project.csc895.sfsu.waitless.R;
 
 public class NearbyFragment extends Fragment {
     private static final String TAG = "Search Activity";

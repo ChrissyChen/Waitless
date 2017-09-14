@@ -1,7 +1,9 @@
-package project.csc895.sfsu.waitless;
+package project.csc895.sfsu.waitless.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import project.csc895.sfsu.waitless.R;
 
 public class SearchActivity extends AppCompatActivity {
 

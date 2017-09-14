@@ -1,4 +1,4 @@
-package project.csc895.sfsu.waitless;
+package project.csc895.sfsu.waitless.ui;
 
 
 import android.app.Fragment;
@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import project.csc895.sfsu.waitless.R;
 
 public class MainActivity extends AppCompatActivity {
 
