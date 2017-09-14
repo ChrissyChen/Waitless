@@ -18,7 +18,7 @@ public class Restaurant {
     private String managerID;
     private String email;
     private String password;
-    private HashMap<Integer, String> tables; //tableSize: tableID //// TODO: 9/14/17  
+    private HashMap<Integer, String> tables; //tableSize: tableID //// TODO: 9/14/17
 
     public Restaurant(String name, String imageUrl, String streetAddress,
                       String city, String state, String zip, String telephone,
