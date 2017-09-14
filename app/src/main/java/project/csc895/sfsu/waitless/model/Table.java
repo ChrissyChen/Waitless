@@ -4,7 +4,7 @@ public class Table {
     private String restaurantID;
     private String orderID;
     private int tableSize;
-    boolean isOccupied;
+    private boolean isOccupied;
     private String tableName;
 
     public Table(String restaurantID, String orderID, int tableSize, boolean isOccupied, String tableName) {
