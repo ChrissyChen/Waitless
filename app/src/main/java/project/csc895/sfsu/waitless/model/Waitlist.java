@@ -1,19 +1,30 @@
 package project.csc895.sfsu.waitless.model;
 
 public class Waitlist {
+
+    private String waitlistID;
     private String restaurantID;
     private String userID;
     private String waitlistNumber; // based on tableSize, A1, B2...
     private String partyNumber; // tableSize TODO: 9/14/17
     private boolean hasShownUp;  //// TODO: 9/14/17
 
-    public Waitlist(String restaurantID, String userID,
-                    String waitlistNumber, String partyNumber, boolean showUp) {
+    public Waitlist(String waitlistID, String restaurantID, String userID,
+                    String waitlistNumber, String partyNumber, boolean hasShownUp) {
+        this.waitlistID = waitlistID;
         this.restaurantID = restaurantID;
         this.userID = userID;
         this.waitlistNumber = waitlistNumber;
         this.partyNumber = partyNumber;
-        this.hasShownUp = showUp;
+        this.hasShownUp = hasShownUp;
+    }
+
+    public String getWaitlistID() {
+        return waitlistID;
+    }
+
+    public void setWaitlistID(String waitlistID) {
+        this.waitlistID = waitlistID;
     }
 
     public String getRestaurantID() {

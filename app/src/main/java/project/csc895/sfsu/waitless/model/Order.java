@@ -4,20 +4,30 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class Order {
+    private String orderID;
     private String userID;
     private String restaurantID;
     private HashMap<String, Integer> oderDetails; //dishID: quantity
     private double totalCost;
     private Date createDate;
 
-    public Order(String userID, String restaurantID,
-                 HashMap<String, Integer> oderDetails,
-                 double totalCost, Date createDate) {
+    public Order(String orderID, String userID, String restaurantID,
+                 HashMap<String, Integer> oderDetails, double totalCost,
+                 Date createDate) {
+        this.orderID = orderID;
         this.userID = userID;
         this.restaurantID = restaurantID;
         this.oderDetails = oderDetails;
         this.totalCost = totalCost;
         this.createDate = createDate;
+    }
+
+    public String getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
     }
 
     public String getUserID() {

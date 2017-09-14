@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class Restaurant {
+    private String restaurantID;
     private String name;
     private String imageUrl;
     private String streetAddress;
@@ -20,11 +21,12 @@ public class Restaurant {
     private String password;
     private HashMap<Integer, String> tables; //tableSize: tableID //// TODO: 9/14/17
 
-    public Restaurant(String name, String imageUrl, String streetAddress,
+    public Restaurant(String restaurantID, String name, String imageUrl, String streetAddress,
                       String city, String state, String zip, String telephone,
                       HashMap<String, Date> openTime, ArrayList<String> cuisineTags,
-                      ArrayList<Dish> dishes, String managerID, String email,
-                      String password, HashMap<Integer, String> tables) {
+                      ArrayList<Dish> dishes, String managerID, String email, String password,
+                      HashMap<Integer, String> tables) {
+        this.restaurantID = restaurantID;
         this.name = name;
         this.imageUrl = imageUrl;
         this.streetAddress = streetAddress;
@@ -39,6 +41,14 @@ public class Restaurant {
         this.email = email;
         this.password = password;
         this.tables = tables;
+    }
+
+    public String getRestaurantID() {
+        return restaurantID;
+    }
+
+    public void setRestaurantID(String restaurantID) {
+        this.restaurantID = restaurantID;
     }
 
     public String getName() {

@@ -1,17 +1,26 @@
 package project.csc895.sfsu.waitless.model;
 
 public class Dish {
+    private String dishID;
     private String name;
     private double price;
     private String restaurantID;
 //    private String description;
 //    private String imageUrl;
 
-
-    public Dish(String name, double price, String restaurantID) {
+    public Dish(String dishID, String name, double price, String restaurantID) {
+        this.dishID = dishID;
         this.name = name;
         this.price = price;
         this.restaurantID = restaurantID;
+    }
+
+    public String getDishID() {
+        return dishID;
+    }
+
+    public void setDishID(String dishID) {
+        this.dishID = dishID;
     }
 
     public String getName() {

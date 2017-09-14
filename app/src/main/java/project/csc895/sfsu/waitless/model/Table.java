@@ -1,18 +1,29 @@
 package project.csc895.sfsu.waitless.model;
 
 public class Table {
+    private String tableID;
     private String restaurantID;
     private String orderID;
     private int tableSize;
     private boolean isOccupied;
     private String tableName;
 
-    public Table(String restaurantID, String orderID, int tableSize, boolean isOccupied, String tableName) {
+    public Table(String tableID, String restaurantID, String orderID,
+                 int tableSize, boolean isOccupied, String tableName) {
+        this.tableID = tableID;
         this.restaurantID = restaurantID;
         this.orderID = orderID;
         this.tableSize = tableSize;
         this.isOccupied = isOccupied;
         this.tableName = tableName;
+    }
+
+    public String getTableID() {
+        return tableID;
+    }
+
+    public void setTableID(String tableID) {
+        this.tableID = tableID;
     }
 
     public String getRestaurantID() {
