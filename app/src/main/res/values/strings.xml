@@ -9,6 +9,14 @@
     <string name="home">Home</string>
     <string name="SanFrancisco">San Francisco</string>
     <string name="hint">Search a Restaurant</string>
+    <string name="Chinese">Chinese</string>
+    <string name="Italian">Italian</string>
+    <string name="Japanese">Japanese</string>
+    <string name="American">American</string>
+    <string name="Thai">Thai</string>
+    <string name="restaurant">restaurant</string>
+    <string name="emptyString"></string>
+
 
     <string name="nearby">Nearby</string>
 

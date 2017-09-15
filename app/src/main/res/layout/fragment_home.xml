@@ -46,7 +46,8 @@
                 android:ems="10"
                 android:hint="@string/hint"
                 android:inputType="text"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:tag="@string/emptyString" />
 
         </LinearLayout>
 
@@ -83,7 +84,8 @@
                             android:layout_weight="1"
                             android:adjustViewBounds="true"
                             android:background="@drawable/button_ripple"
-                            android:scaleType="fitCenter" />
+                            android:scaleType="fitCenter"
+                            android:tag="@string/Chinese" />
 
                         <ImageButton
                             android:id="@+id/italianCuisineButton"
@@ -98,7 +100,8 @@
                             android:adjustViewBounds="true"
                             android:background="@drawable/button_ripple"
                             android:contentDescription=""
-                            android:scaleType="fitCenter" />
+                            android:scaleType="fitCenter"
+                            android:tag="@string/Italian"/>
 
                         <ImageButton
                             android:id="@+id/japaneseCuisineButton"
@@ -111,7 +114,8 @@
                             android:layout_weight="1"
                             android:adjustViewBounds="true"
                             android:background="@drawable/button_ripple"
-                            android:scaleType="fitCenter" />
+                            android:scaleType="fitCenter"
+                            android:tag="@string/Japanese" />
                     </TableRow>
 
                     <TableRow>
@@ -127,7 +131,8 @@
                             android:layout_weight="1"
                             android:adjustViewBounds="true"
                             android:background="@drawable/button_ripple"
-                            android:scaleType="fitCenter" />
+                            android:scaleType="fitCenter"
+                            android:tag="@string/American" />
 
                         <ImageButton
                             android:id="@+id/thaiCuisineButton"
@@ -140,7 +145,8 @@
                             android:layout_weight="1"
                             android:adjustViewBounds="true"
                             android:background="@drawable/button_ripple"
-                            android:scaleType="fitCenter" />
+                            android:scaleType="fitCenter"
+                            android:tag="@string/Thai" />
 
                         <ImageButton
                             android:id="@+id/viewAllCuisineButton"
@@ -153,7 +159,8 @@
                             android:layout_weight="1"
                             android:adjustViewBounds="true"
                             android:background="@drawable/button_ripple"
-                            android:scaleType="fitCenter" />
+                            android:scaleType="fitCenter"
+                            android:tag="@string/restaurant" />
                     </TableRow>
                 </TableLayout>
 

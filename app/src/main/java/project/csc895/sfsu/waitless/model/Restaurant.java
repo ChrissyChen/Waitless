@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class Restaurant {
+    private String restaurantID;
     private String name;
     private String imageUrl;
     private String streetAddress;
@@ -14,17 +15,18 @@ public class Restaurant {
     private String telephone;
     private HashMap<String, Date> openTime; // TODO: 9/14/17
     private ArrayList<String> cuisineTags;
-    private String menuID;
+    private ArrayList<Dish> dishes; // TODO: 9/14/17
     private String managerID;
     private String email;
     private String password;
-    private HashMap<Integer, String> tables; //tablesize: tableID
+    private HashMap<Integer, String> tables; //tableSize: tableID //// TODO: 9/14/17
 
-    public Restaurant(String name, String imageUrl, String streetAddress,
+    public Restaurant(String restaurantID, String name, String imageUrl, String streetAddress,
                       String city, String state, String zip, String telephone,
                       HashMap<String, Date> openTime, ArrayList<String> cuisineTags,
-                      String menuID, String managerID, String email, String password,
+                      ArrayList<Dish> dishes, String managerID, String email, String password,
                       HashMap<Integer, String> tables) {
+        this.restaurantID = restaurantID;
         this.name = name;
         this.imageUrl = imageUrl;
         this.streetAddress = streetAddress;
@@ -34,11 +36,24 @@ public class Restaurant {
         this.telephone = telephone;
         this.openTime = openTime;
         this.cuisineTags = cuisineTags;
-        this.menuID = menuID;
+        this.dishes = dishes;
         this.managerID = managerID;
         this.email = email;
         this.password = password;
         this.tables = tables;
+    }
+
+    public Restaurant(String name, ArrayList<String> cuisineTags) {
+        this.name = name;
+        this.cuisineTags = cuisineTags;
+    }
+
+    public String getRestaurantID() {
+        return restaurantID;
+    }
+
+    public void setRestaurantID(String restaurantID) {
+        this.restaurantID = restaurantID;
     }
 
     public String getName() {
@@ -113,12 +128,12 @@ public class Restaurant {
         this.cuisineTags = cuisineTags;
     }
 
-    public String getMenuID() {
-        return menuID;
+    public ArrayList<Dish> getDishes() {
+        return dishes;
     }
 
-    public void setMenuID(String menuID) {
-        this.menuID = menuID;
+    public void setDishes(ArrayList<Dish> dishes) {
+        this.dishes = dishes;
     }
 
     public String getManagerID() {
