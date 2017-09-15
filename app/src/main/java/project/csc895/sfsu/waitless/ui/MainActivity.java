@@ -12,7 +12,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 import project.csc895.sfsu.waitless.R;
+import project.csc895.sfsu.waitless.Test_sendDataToFirebase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +28,24 @@ public class MainActivity extends AppCompatActivity {
 
         setupBottomNavigationView();
         Log.d(TAG, "1");
+
+
+//        Test_sendDataToFirebase test = new Test_sendDataToFirebase();
+//        ArrayList<String> cuisineTags = new ArrayList<>();
+//        cuisineTags.add("Chinese");
+//        cuisineTags.add("Hot Pot");
+//        test.writeNewRestaurant("1", "Fashion Wok", cuisineTags);
+//
+//        Log.d(TAG, "test to write 1");
+//
+//        ArrayList<String> cuisineTags2 = new ArrayList<>();
+//        cuisineTags2.add("American");
+//        cuisineTags2.add("Burger");
+//        test.writeNewRestaurant("2", "iHop", cuisineTags);
+//
+//        Log.d(TAG, "test to write 2");
+
+
 
 //        textInputLayout = (TextInputLayout) findViewById(R.id.text_input_layout);
 //        editText = (EditText) findViewById(R.id.edit_text);

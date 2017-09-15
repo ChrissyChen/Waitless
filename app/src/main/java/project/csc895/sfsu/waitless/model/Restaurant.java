@@ -43,6 +43,11 @@ public class Restaurant {
         this.tables = tables;
     }
 
+    public Restaurant(String name, ArrayList<String> cuisineTags) {
+        this.name = name;
+        this.cuisineTags = cuisineTags;
+    }
+
     public String getRestaurantID() {
         return restaurantID;
     }

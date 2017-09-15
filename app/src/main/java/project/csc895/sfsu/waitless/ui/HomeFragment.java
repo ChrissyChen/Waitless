@@ -17,6 +17,7 @@ import project.csc895.sfsu.waitless.R;
 public class HomeFragment extends Fragment{
 
     private static final String TAG = "Home Fragment";
+    public final static String EXTRA_MESSAGE = "Extra Message_" + TAG;
     private EditText mSearchEditText;
     private ImageButton mChineseButton, mItalianButton, mJapaneseButton,
             mAmericanButton, mThaiButton, mViewAllButton;
@@ -64,7 +65,11 @@ public class HomeFragment extends Fragment{
         mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), SearchActivity.class));
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                String searchTag = v.getTag().toString();
+                Log.d(TAG, searchTag);
+                intent.putExtra(EXTRA_MESSAGE, searchTag);
+                startActivity(intent);
 
 //                Fragment  searchFragment = new SearchFragment();
 //                FragmentManager fragmentManager = getFragmentManager();
