@@ -19,6 +19,10 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        Log.d(TAG,"1111");
+        overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+        Log.d(TAG,"2222");
+
         Intent intent = getIntent();
         String searchTag = intent.getStringExtra(HomeFragment.EXTRA_MESSAGE);
         Log.d(TAG, searchTag);
@@ -31,5 +35,11 @@ public class SearchActivity extends AppCompatActivity {
         searchLinearLayout.setFocusableInTouchMode(true);
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
     }
 }
