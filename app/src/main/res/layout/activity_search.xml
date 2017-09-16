@@ -8,6 +8,7 @@
     android:weightSum="1">
 
     <LinearLayout
+        android:id="@+id/searchLinearLayout"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
