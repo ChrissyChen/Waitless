@@ -9,8 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import project.csc895.sfsu.waitless.R;
 
@@ -18,7 +20,7 @@ public class HomeFragment extends Fragment{
 
     private static final String TAG = "Home Fragment";
     public final static String EXTRA_MESSAGE = "Extra Message_" + TAG;
-    private EditText mSearchEditText;
+    private TextView mSearchTextView;
     private ImageButton mChineseButton, mItalianButton, mJapaneseButton,
             mAmericanButton, mThaiButton, mViewAllButton;
     private BottomNavigationView mBottomNavigationView;
@@ -29,19 +31,23 @@ public class HomeFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        mSearchEditText = (EditText)view.findViewById(R.id.searchEditText);
+        mSearchTextView = (TextView) view.findViewById(R.id.searchTextView);
+        showSearchPageOnClick(mSearchTextView);
+//        mSearchButton = (Button) view.findViewById(R.id.searchButton);
+//        showSearchPageOnClick(mSearchButton);
 
-        mSearchEditText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    Log.d(TAG, "2");
-                    showSearchPageOnClick(mSearchEditText);
-                }
-            }
-        });
-
-        showSearchPageOnClick(mSearchEditText);
+//        mSearchEditText = (EditText)view.findViewById(R.id.searchEditText);
+//
+//        mSearchEditText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//
+//                }
+//            }
+//        });
+//
+//        showSearchPageOnClick(mSearchEditText);
         Log.d(TAG, "3");
 
         mChineseButton = (ImageButton)view.findViewById(R.id.chineseCuisineButton);

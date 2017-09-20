@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import project.csc895.sfsu.waitless.R;
@@ -18,13 +19,27 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        Log.d(TAG,"1111");
+        overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+        Log.d(TAG,"2222");
+
         Intent intent = getIntent();
         String searchTag = intent.getStringExtra(HomeFragment.EXTRA_MESSAGE);
         Log.d(TAG, searchTag);
-        
+
         EditText editText = (EditText) findViewById(R.id.searchBarEditText);
         editText.setText(searchTag);
 
+        LinearLayout searchLinearLayout = (LinearLayout) findViewById(R.id.searchLinearLayout);
+        searchLinearLayout.setFocusable(true);
+        searchLinearLayout.setFocusableInTouchMode(true);
 
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
     }
 }
