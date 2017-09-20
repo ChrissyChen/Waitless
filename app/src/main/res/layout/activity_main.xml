@@ -1,17 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="project.csc895.sfsu.waitless.MainActivity">
+    tools:context="project.csc895.sfsu.waitless.ui.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:focusable="true"-->
+    <!--android:focusableInTouchMode="true" />-->
+
+    <!--<android.support.design.widget.TextInputLayout-->
+    <!--android:id="@+id/text_input_layout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--app:errorEnabled="true"-->
+    <!--app:errorTextAppearance="@style/ErrorText">-->
+
+    <!--<EditText-->
+    <!--android:id="@+id/edit_text"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:hint="@string/hint"-->
+    <!--android:imeOptions="actionGo"-->
+    <!--android:inputType="text"-->
+    <!--android:maxLines="1" />-->
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+
+
+
+    <FrameLayout
+        android:id="@+id/rootLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation"
+        android:orientation="vertical">
+
+    </FrameLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_alignParentBottom="true"
+        app:itemIconTint="@drawable/nav_item_color_state"
+        app:itemTextColor="@drawable/nav_item_color_state"
+        app:itemBackground="@color/grey"
+        app:menu="@menu/bottom_navigation_menu"/>
+
 </RelativeLayout>
