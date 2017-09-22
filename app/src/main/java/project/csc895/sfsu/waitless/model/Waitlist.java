@@ -9,6 +9,9 @@ public class Waitlist {
     private String partyNumber; // tableSize TODO: 9/14/17
     private boolean hasShownUp;  //// TODO: 9/14/17
 
+    public Waitlist() {
+    }
+
     public Waitlist(String waitlistID, String restaurantID, String userID,
                     String waitlistNumber, String partyNumber, boolean hasShownUp) {
         this.waitlistID = waitlistID;
