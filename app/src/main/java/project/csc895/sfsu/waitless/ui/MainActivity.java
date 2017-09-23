@@ -41,11 +41,13 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "1");
 
 
-//        ArrayList<String> cuisineTags = new ArrayList<>();
-//        cuisineTags.add("Chinese");
-//        cuisineTags.add("Hot Pot");
-//        Restaurant restaurant = new Restaurant("Fashion Wok", cuisineTags);
-//        mDatabase.child("restaurants").child("1").setValue(restaurant);
+        ArrayList<String> cuisineTags = new ArrayList<>();
+        cuisineTags.add("Chinese");
+        cuisineTags.add("Hot Pot");
+        Restaurant restaurant = new Restaurant("Fashion Wok", cuisineTags);
+        mDatabase.child("restaurants").child("1").setValue(restaurant);
+
+        Log.d(TAG, "test to write Restaurant");
 
         Dish dish = new Dish("1", "duck meat", 12.95, "001");
         mDatabase.child("dishes").push().setValue(dish).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         //isGooglePlayServicesAvailable(this);
 
-        Log.d(TAG, "test to write 1");
+        Log.d(TAG, "test to write Dish");
 
 //        ArrayList<String> cuisineTags2 = new ArrayList<>();
 //        cuisineTags2.add("American");

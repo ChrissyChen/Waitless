@@ -17,11 +17,11 @@ public class Restaurant {
     private String telephone;
     private Map<String, Date> openTime; // TODO: 9/14/17
     private List<String> cuisineTags;
-    private List<Dish> dishes; // TODO: 9/14/17
+    private List<String> dishes;
     private String managerID;
     private String email;
     private String password;
-    private Map<Integer, String> tables; //tableSize: tableID //// TODO: 9/14/17
+    private Map<Integer, List<String>> tables; //tableSize: tableID //// TODO: 9/14/17
 
     public Restaurant() {
     }
@@ -29,8 +29,8 @@ public class Restaurant {
     public Restaurant(String restaurantID, String name, String imageUrl, String streetAddress,
                       String city, String state, String zip, String telephone,
                       Map<String, Date> openTime, List<String> cuisineTags,
-                      List<Dish> dishes, String managerID, String email, String password,
-                      Map<Integer, String> tables) {
+                      List<String> dishes, String managerID, String email, String password,
+                      Map<Integer, List<String>> tables) {
         this.restaurantID = restaurantID;
         this.name = name;
         this.imageUrl = imageUrl;
@@ -133,11 +133,11 @@ public class Restaurant {
         this.cuisineTags = cuisineTags;
     }
 
-    public List<Dish> getDishes() {
+    public List<String> getDishes() {
         return dishes;
     }
 
-    public void setDishes(List<Dish> dishes) {
+    public void setDishes(List<String> dishes) {
         this.dishes = dishes;
     }
 
@@ -165,11 +165,11 @@ public class Restaurant {
         this.password = password;
     }
 
-    public Map<Integer, String> getTables() {
+    public Map<Integer, List<String>> getTables() {
         return tables;
     }
 
-    public void setTables(Map<Integer, String> tables) {
+    public void setTables(Map<Integer, List<String>> tables) {
         this.tables = tables;
     }
 }

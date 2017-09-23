@@ -19,9 +19,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        Log.d(TAG,"1111");
         overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
-        Log.d(TAG,"2222");
 
         Intent intent = getIntent();
         String searchTag = intent.getStringExtra(HomeFragment.EXTRA_MESSAGE);
@@ -31,6 +29,7 @@ public class SearchActivity extends AppCompatActivity {
         editText.setText(searchTag);
 
         LinearLayout searchLinearLayout = (LinearLayout) findViewById(R.id.searchLinearLayout);
+        // set editText not on focus
         searchLinearLayout.setFocusable(true);
         searchLinearLayout.setFocusableInTouchMode(true);
 
