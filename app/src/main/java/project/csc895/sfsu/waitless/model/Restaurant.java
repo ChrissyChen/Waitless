@@ -129,6 +129,17 @@ public class Restaurant {
         return cuisineTags;
     }
 
+    public String getCuisineTagsString() {
+        int len = getCuisineTags().size();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < len - 1; i++) {
+            sb.append(getCuisineTags().get(i));
+            sb.append(", ");
+        }
+        sb.append(getCuisineTags().get(len-1));
+        return sb.toString();
+    }
+
     public void setCuisineTags(List<String> cuisineTags) {
         this.cuisineTags = cuisineTags;
     }
