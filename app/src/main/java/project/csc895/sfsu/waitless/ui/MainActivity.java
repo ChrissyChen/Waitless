@@ -1,6 +1,7 @@
 package project.csc895.sfsu.waitless.ui;
 
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -12,14 +13,24 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 import project.csc895.sfsu.waitless.R;
 import project.csc895.sfsu.waitless.Test_sendDataToFirebase;
+import project.csc895.sfsu.waitless.model.Dish;
+import project.csc895.sfsu.waitless.model.Restaurant;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Main Activity";
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +41,28 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "1");
 
 
-//        Test_sendDataToFirebase test = new Test_sendDataToFirebase();
 //        ArrayList<String> cuisineTags = new ArrayList<>();
-//        cuisineTags.add("Chinese");
-//        cuisineTags.add("Hot Pot");
-//        test.writeNewRestaurant("1", "Fashion Wok", cuisineTags);
+//        cuisineTags.add("American");
+//        cuisineTags.add("Pancake");
+//        Restaurant restaurant = new Restaurant("iHop", cuisineTags);
+//        mDatabase.child("restaurants").child("2").setValue(restaurant);
 //
-//        Log.d(TAG, "test to write 1");
+//        Log.d(TAG, "test to write Restaurant");
 //
+//        Dish dish = new Dish("2", "chicken", 13.95, "002");
+//        mDatabase.child("dishes").push().setValue(dish).addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void aVoid) {
+//                Log.d(TAG, "!!!!!!!!!!!!!!!!!!!");
+//            }
+//        });
+
+//        Log.d(TAG, "test to write Dish");
+
+        //isGooglePlayServicesAvailable(this);
+
+
+
 //        ArrayList<String> cuisineTags2 = new ArrayList<>();
 //        cuisineTags2.add("American");
 //        cuisineTags2.add("Burger");
@@ -141,5 +166,17 @@ public class MainActivity extends AppCompatActivity {
                 transaction.commit();
             }
         }
+    }
+
+    public boolean isGooglePlayServicesAvailable(Activity activity) {
+        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+        int status = googleApiAvailability.isGooglePlayServicesAvailable(activity);
+        if(status != ConnectionResult.SUCCESS) {
+            if(googleApiAvailability.isUserResolvableError(status)) {
+                googleApiAvailability.getErrorDialog(activity, status, 2404).show();
+            }
+            return false;
+        }
+        return true;
     }
 }

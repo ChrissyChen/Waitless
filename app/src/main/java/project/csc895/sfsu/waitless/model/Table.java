@@ -8,6 +8,9 @@ public class Table {
     private boolean isOccupied;
     private String tableName;
 
+    public Table() {
+    }
+
     public Table(String tableID, String restaurantID, String orderID,
                  int tableSize, boolean isOccupied, String tableName) {
         this.tableID = tableID;

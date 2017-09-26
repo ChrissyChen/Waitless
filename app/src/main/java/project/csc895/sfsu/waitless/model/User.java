@@ -2,6 +2,7 @@ package project.csc895.sfsu.waitless.model;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class User {
     private String userID;
@@ -10,10 +11,13 @@ public class User {
     private String password;
     private String telephone;
     private String photoUrl;
-    private ArrayList<String> favorites; // store restaurant_ids
+    private List<String> favorites; // store restaurant_ids
+
+    public User() {
+    }
 
     public User(String userID, String username, String email, String password,
-                String telephone, String photoUrl, ArrayList<String> favorites) {
+                String telephone, String photoUrl, List<String> favorites) {
         this.userID = userID;
         this.username = username;
         this.email = email;
@@ -71,11 +75,11 @@ public class User {
         this.photoUrl = photoUrl;
     }
 
-    public ArrayList<String> getFavorites() {
+    public List<String> getFavorites() {
         return favorites;
     }
 
-    public void setFavorites(ArrayList<String> favorites) {
+    public void setFavorites(List<String> favorites) {
         this.favorites = favorites;
     }
 }

@@ -3,6 +3,8 @@ package project.csc895.sfsu.waitless.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Restaurant {
     private String restaurantID;
@@ -13,19 +15,22 @@ public class Restaurant {
     private String state;
     private String zip;
     private String telephone;
-    private HashMap<String, Date> openTime; // TODO: 9/14/17
-    private ArrayList<String> cuisineTags;
-    private ArrayList<Dish> dishes; // TODO: 9/14/17
+    private Map<String, Date> openTime; // TODO: 9/14/17
+    private List<String> cuisineTags;
+    private List<String> dishes;
     private String managerID;
     private String email;
     private String password;
-    private HashMap<Integer, String> tables; //tableSize: tableID //// TODO: 9/14/17
+    private Map<Integer, List<String>> tables; //tableSize: tableID //// TODO: 9/14/17
+
+    public Restaurant() {
+    }
 
     public Restaurant(String restaurantID, String name, String imageUrl, String streetAddress,
                       String city, String state, String zip, String telephone,
-                      HashMap<String, Date> openTime, ArrayList<String> cuisineTags,
-                      ArrayList<Dish> dishes, String managerID, String email, String password,
-                      HashMap<Integer, String> tables) {
+                      Map<String, Date> openTime, List<String> cuisineTags,
+                      List<String> dishes, String managerID, String email, String password,
+                      Map<Integer, List<String>> tables) {
         this.restaurantID = restaurantID;
         this.name = name;
         this.imageUrl = imageUrl;
@@ -43,7 +48,7 @@ public class Restaurant {
         this.tables = tables;
     }
 
-    public Restaurant(String name, ArrayList<String> cuisineTags) {
+    public Restaurant(String name, List<String> cuisineTags) {
         this.name = name;
         this.cuisineTags = cuisineTags;
     }
@@ -112,27 +117,38 @@ public class Restaurant {
         this.telephone = telephone;
     }
 
-    public HashMap<String, Date> getOpenTime() {
+    public Map<String, Date> getOpenTime() {
         return openTime;
     }
 
-    public void setOpenTime(HashMap<String, Date> openTime) {
+    public void setOpenTime(Map<String, Date> openTime) {
         this.openTime = openTime;
     }
 
-    public ArrayList<String> getCuisineTags() {
+    public List<String> getCuisineTags() {
         return cuisineTags;
     }
 
-    public void setCuisineTags(ArrayList<String> cuisineTags) {
+    public String getCuisineTagsString() {
+        int len = getCuisineTags().size();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < len - 1; i++) {
+            sb.append(getCuisineTags().get(i));
+            sb.append(", ");
+        }
+        sb.append(getCuisineTags().get(len-1));
+        return sb.toString();
+    }
+
+    public void setCuisineTags(List<String> cuisineTags) {
         this.cuisineTags = cuisineTags;
     }
 
-    public ArrayList<Dish> getDishes() {
+    public List<String> getDishes() {
         return dishes;
     }
 
-    public void setDishes(ArrayList<Dish> dishes) {
+    public void setDishes(List<String> dishes) {
         this.dishes = dishes;
     }
 
@@ -160,11 +176,11 @@ public class Restaurant {
         this.password = password;
     }
 
-    public HashMap<Integer, String> getTables() {
+    public Map<Integer, List<String>> getTables() {
         return tables;
     }
 
-    public void setTables(HashMap<Integer, String> tables) {
+    public void setTables(Map<Integer, List<String>> tables) {
         this.tables = tables;
     }
 }

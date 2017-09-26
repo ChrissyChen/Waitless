@@ -1,25 +1,28 @@
 package project.csc895.sfsu.waitless.model;
 
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Map;
 
 public class Order {
     private String orderID;
     private String userID;
     private String restaurantID;
-    private HashMap<String, Integer> oderDetails; //dishID: quantity
+    private Map<String, Integer> oderDetails; //dishID: quantity
     private double totalCost;
-    private Date createDate;
+    private Date createdDate;
+
+    public Order() {
+    }
 
     public Order(String orderID, String userID, String restaurantID,
-                 HashMap<String, Integer> oderDetails, double totalCost,
-                 Date createDate) {
+                 Map<String, Integer> oderDetails, double totalCost,
+                 Date createdDate) {
         this.orderID = orderID;
         this.userID = userID;
         this.restaurantID = restaurantID;
         this.oderDetails = oderDetails;
         this.totalCost = totalCost;
-        this.createDate = createDate;
+        this.createdDate = createdDate;
     }
 
     public String getOrderID() {
@@ -46,11 +49,11 @@ public class Order {
         this.restaurantID = restaurantID;
     }
 
-    public HashMap<String, Integer> getOderDetails() {
+    public Map<String, Integer> getOderDetails() {
         return oderDetails;
     }
 
-    public void setOderDetails(HashMap<String, Integer> oderDetails) {
+    public void setOderDetails(Map<String, Integer> oderDetails) {
         this.oderDetails = oderDetails;
     }
 
@@ -62,11 +65,11 @@ public class Order {
         this.totalCost = totalCost;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 }

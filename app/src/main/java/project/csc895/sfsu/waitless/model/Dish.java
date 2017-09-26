@@ -8,6 +8,10 @@ public class Dish {
 //    private String description;
 //    private String imageUrl;
 
+    public Dish(){
+
+    }
+
     public Dish(String dishID, String name, double price, String restaurantID) {
         this.dishID = dishID;
         this.name = name;
