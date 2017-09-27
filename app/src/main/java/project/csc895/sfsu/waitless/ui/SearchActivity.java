@@ -2,7 +2,9 @@ package project.csc895.sfsu.waitless.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -47,11 +49,9 @@ public class SearchActivity extends AppCompatActivity {
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private RecyclerView mRecyclerView;
     private FirebaseRecyclerAdapter mAdapter;
-    //private SearchRestaurantAdapter mAdapter;
     private EditText mSearchBarEditText;
     private Button mSearchButton;
     private TextView mNoResultTextView;
-    //private ArrayList<Restaurant> restaurantList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +75,6 @@ public class SearchActivity extends AppCompatActivity {
         searchLinearLayout.setFocusable(true);    // set editText not on focus
         searchLinearLayout.setFocusableInTouchMode(true);
 
-        mNoResultTextView = (TextView) findViewById(R.id.noResult);
-
         mRecyclerView = (RecyclerView) findViewById(R.id.restaurantList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -88,8 +86,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-
-
+        mNoResultTextView = (TextView) findViewById(R.id.noResult);
     }
 
     private void searchRestaurantByName(String name) {
