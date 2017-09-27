@@ -51,7 +51,7 @@ public class SearchActivity extends AppCompatActivity {
     private EditText mSearchBarEditText;
     private Button mSearchButton;
     private TextView mNoResultTextView;
-    private ArrayList<Restaurant> restaurantList = new ArrayList<>();
+    //private ArrayList<Restaurant> restaurantList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,39 +67,13 @@ public class SearchActivity extends AppCompatActivity {
         mSearchBarEditText = (EditText) findViewById(R.id.searchBarEditText);
         mSearchBarEditText.setText(searchTag);
 
+        if (!searchTag.equals("")) {
+            //searchRestaurantByCuisine();
+        }
+
         LinearLayout searchLinearLayout = (LinearLayout) findViewById(R.id.searchLinearLayout);
-        // set editText not on focus
-        searchLinearLayout.setFocusable(true);
+        searchLinearLayout.setFocusable(true);    // set editText not on focus
         searchLinearLayout.setFocusableInTouchMode(true);
-
-
-        //displayInfo();
-
-
-//        mSearchBarEditText.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if (charSequence.toString().trim().length() > 0) {
-//                    mSearchButton.setEnabled(true);
-//                    Log.d(TAG, "search button is enabled");
-//                } else {
-//                    mSearchButton.setEnabled(false);
-//                    Log.d(TAG, "search button is disabled");
-//                    // clear the list view
-//                    mRecyclerView.setAdapter(null);
-//                    mNoResultTextView.setVisibility(View.GONE);
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//            }
-//        });
-
 
         mNoResultTextView = (TextView) findViewById(R.id.noResult);
 
@@ -110,66 +84,58 @@ public class SearchActivity extends AppCompatActivity {
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String queryText = mSearchBarEditText.getText().toString();
-                Log.d(TAG, "user types the keyword: " + queryText);
-                Query query = mDatabase.child(RESTAURANT_CHILD)
-                        .orderByChild(NAME_CHILD)
-                        .startAt(queryText)
-                        .endAt(queryText + "\uf8ff");
-
-                mAdapter = new FirebaseRecyclerAdapter<Restaurant, RestaurantViewHolder>(
-                        Restaurant.class,
-                        R.layout.item_restaurant_brief_info,
-                        RestaurantViewHolder.class,
-                        query) {
-                    @Override
-                    protected void populateViewHolder(RestaurantViewHolder viewHolder, Restaurant restaurant, int position) {
-                        //// TODO: 9/25/17
-                        viewHolder.setName(restaurant.getName());
-                        viewHolder.setCuisine(restaurant.getCuisineTagsString());
-                    }
-                };
-
-                mRecyclerView.setAdapter(mAdapter);
+                searchRestaurantByName(NAME_CHILD);
             }
         });
 
 
-//        mRecyclerView = (RecyclerView) findViewById(R.id.restaurantList);
-//
-//
-//
-//        mSearchButton = (Button) findViewById(R.id.searchButton);
-//        mSearchButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                searchRestaurant();
-//                Log.d(TAG, "search button is clicked: search message");
-//            }
-//        });
+
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
-    }
+    private void searchRestaurantByName(String name) {
+        String queryText = mSearchBarEditText.getText().toString();
+        Log.d(TAG, "user types the keyword: " + queryText);
+        Query query = mDatabase.child(RESTAURANT_CHILD)
+                .orderByChild(name)
+                .startAt(queryText)
+                .endAt(queryText + "\uf8ff");
 
-//    public void displayInfo() {
-//        mDatabase.limitToLast(5).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot snapshot) {
-//                for (DataSnapshot msgSnapshot: snapshot.getChildren()) {
-//                    Restaurant restaurant  = msgSnapshot.getValue(Restaurant.class);
-//                    Log.i("Restaurant", restaurant.getName()+": "+restaurant.getCuisineTags());
-//                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                Log.e("Restaurant", "The read failed: " + error.getDetails());
-//            }
-//        });
-//    }
+        mAdapter = new FirebaseRecyclerAdapter<Restaurant, RestaurantViewHolder>(
+                Restaurant.class,
+                R.layout.item_restaurant_brief_info,
+                RestaurantViewHolder.class,
+                query) {
+            @Override
+            protected void populateViewHolder(RestaurantViewHolder viewHolder, Restaurant restaurant, int position) {
+                //// TODO: 9/25/17
+                viewHolder.setName(restaurant.getName());
+                viewHolder.setCuisine(restaurant.getCuisineTagsString());
+            }
+        };
+        mRecyclerView.setAdapter(mAdapter);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // show no result view
+                if (!dataSnapshot.hasChildren()) {
+                    mRecyclerView.setVisibility(View.GONE);
+                    mNoResultTextView.setVisibility(View.VISIBLE);
+                    Log.d(TAG, "NO RESULT VIEW SHOWS");
+                } else {
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                    mNoResultTextView.setVisibility(View.GONE);
+                    Log.d(TAG, "RESULT VIEW SHOWS");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
     public static class RestaurantViewHolder extends RecyclerView.ViewHolder {
         private ImageButton mImageField;
@@ -196,33 +162,19 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        mAdapter.cleanup();
-    }
-
-    private void searchRestaurant() {
-        String queryText = mSearchBarEditText.getText().toString();
-        Log.d(TAG, "user types the keyword: " + queryText);
-        Query query = mDatabase.child(RESTAURANT_CHILD)
-                .orderByChild(NAME_CHILD)
-                .startAt(queryText);
-
-        mAdapter = new FirebaseRecyclerAdapter<Restaurant, RestaurantViewHolder>(
-                Restaurant.class,
-                R.layout.item_restaurant_brief_info,
-                RestaurantViewHolder.class,
-                query) {
-            @Override
-            protected void populateViewHolder(RestaurantViewHolder viewHolder, Restaurant restaurant, int position) {
-                //// TODO: 9/25/17
-                viewHolder.setName(restaurant.getName());
-                viewHolder.setCuisine(restaurant.getCuisineTagsString());
-            }
-        };
-        mRecyclerView.setAdapter(mAdapter);
-
+        if (mAdapter != null) {
+            mAdapter.cleanup();
+        }
     }
 }
 

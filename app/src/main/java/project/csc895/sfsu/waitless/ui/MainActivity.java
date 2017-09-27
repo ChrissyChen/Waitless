@@ -42,8 +42,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 //        ArrayList<String> cuisineTags = new ArrayList<>();
-//        cuisineTags.add("Japanese");
-//        Restaurant restaurant = new Restaurant("Tokyo Village", cuisineTags);
+//        cuisineTags.add("Chinese");
+//        cuisineTags.add("Taiwanese");
+//        cuisineTags.add("Breakfast");
+//        Restaurant restaurant = new Restaurant("Joy Restaurant", cuisineTags);
 //        mDatabase.child("restaurants").push().setValue(restaurant);
 //
 //        Log.d(TAG, "test to write Restaurant j");
