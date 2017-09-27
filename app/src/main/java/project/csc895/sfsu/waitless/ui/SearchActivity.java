@@ -102,6 +102,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
         mNoResultTextView = (TextView) findViewById(R.id.noResult);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.restaurantList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -113,7 +114,8 @@ public class SearchActivity extends AppCompatActivity {
                 Log.d(TAG, "user types the keyword: " + queryText);
                 Query query = mDatabase.child(RESTAURANT_CHILD)
                         .orderByChild(NAME_CHILD)
-                        .startAt(queryText);
+                        .startAt(queryText)
+                        .endAt(queryText + "\uf8ff");
 
                 mAdapter = new FirebaseRecyclerAdapter<Restaurant, RestaurantViewHolder>(
                         Restaurant.class,
@@ -207,38 +209,6 @@ public class SearchActivity extends AppCompatActivity {
                 .orderByChild(NAME_CHILD)
                 .startAt(queryText);
 
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.exists()) {
-//                    // dataSnapshot is the "restaurants" node with all children with name starts with queryText
-//                    for (DataSnapshot restaurantSnapshot : dataSnapshot.getChildren()) {
-//                        Restaurant restaurant = new Restaurant((HashMap<String, String>) restaurantSnapshot.getValue());
-//                        restaurantList.add(restaurant);
-//                    }
-//                    mAdapter = new SearchRestaurantAdapter(restaurantList);
-//                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-//                    mRecyclerView.setLayoutManager(mLayoutManager);
-//                    mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-//                    mRecyclerView.setAdapter(mAdapter);
-//
-//
-//                } else {
-//                    Log.d(TAG, "no result found");
-//                    // show a no result found message
-//                    mRecyclerView.setAdapter(null);
-//                    mNoResultTextView.setVisibility(View.VISIBLE);
-////                    mRecyclerView.setEmptyView(mNoResultTextView);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
-
         mAdapter = new FirebaseRecyclerAdapter<Restaurant, RestaurantViewHolder>(
                 Restaurant.class,
                 R.layout.item_restaurant_brief_info,
@@ -253,109 +223,6 @@ public class SearchActivity extends AppCompatActivity {
         };
         mRecyclerView.setAdapter(mAdapter);
 
-
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.exists()) {
-//                    // dataSnapshot is the "messages" node with all children with text starts with queryText
-//                    for (DataSnapshot restaurantSnapshot : dataSnapshot.getChildren()) {
-//                        ChatMessage chatMessage = new ChatMessage((HashMap<String, String>) message.getValue());
-//                        mResultList.add(chatMessage);
-//                    }
-//                    mAdapter = new SearchMessageAdapter(mResultList, SearchMessageActivity.this);
-//                    mSearchResultListView.setAdapter(mAdapter);
-//
-//                } else {
-//                    Log.d(TAG, "no result found");
-//                    // show a no result found message
-//                    mSearchResultListView.setAdapter(null);
-//                    mNoResultTextView.setVisibility(View.VISIBLE);
-//                    mSearchResultListView.setEmptyView(mNoResultTextView);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//        });
     }
-
-//    public class SearchRestaurantAdapter extends RecyclerView.Adapter<RestaurantViewHolder> {
-//        private List<Restaurant> restaurantList;
-//
-//        public SearchRestaurantAdapter(List<Restaurant> restaurantList) {
-//            this.restaurantList = restaurantList;
-//        }
-//
-//        @Override
-//        public RestaurantViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//            View itemView = LayoutInflater.from(parent.getContext())
-//                    .inflate(R.layout.item_restaurant_brief_info, parent, false);
-//            return new RestaurantViewHolder(itemView);
-//        }
-//
-//        @Override
-//        public void onBindViewHolder(RestaurantViewHolder viewHolder, int position) {
-//            Restaurant restaurant = restaurantList.get(position);
-//            //// TODO: 9/26/17
-//            viewHolder.setName(restaurant.getName());
-//            //viewHolder.setCuisine(restaurant.getCuisineTagsString());
-//        }
-//
-//        @Override
-//        public int getItemCount() {
-//            return restaurantList.size();
-//        }
-
-
-//        private ArrayList<Restaurant> restaurantList;
-//        private Context mContext;
-//
-//        public SearchRestaurantAdapter(ArrayList<Restaurant> restaurantList, Context mContext) {
-//            this.restaurantList = restaurantList;
-//            this.mContext = mContext;
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return restaurantList.size();
-//        }
-//
-//        @Override
-//        public Object getItem(int position) {
-//            return null;
-//        }
-//
-//        @Override
-//        public long getItemId(int position) {
-//            return position;
-//        }
-//
-//        @Override
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_restaurant_brief_info, parent, false);
-//
-//            final ImageButton restaurantImage = (ImageButton) convertView.findViewById(R.id.restaurantImage);
-//            TextView restaurantNameField = (TextView) convertView.findViewById(R.id.restaurantName);
-//            TextView restaurantCuisineField = (TextView) convertView.findViewById(R.id.restaurantCuisineTags);
-//
-//            //restaurantImage.setImageBitmap(); //// TODO: 9/26/17
-//            restaurantNameField.setText(restaurantList.get(position).getName());
-//            restaurantCuisineField.setText(restaurantList.get(position).getCuisineTagsString());
-//
-//            SimpleTarget target = new SimpleTarget<Bitmap>() {
-//                @Override
-//                public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
-//                    restaurantImage.setImageBitmap(bitmap); //// TODO: 9/26/17
-//                }
-//            };
-//            Glide.with(SearchActivity.this)
-//                    .load(restaurantList.get(position).getImageUrl())
-//                    .asBitmap()
-//                    .into(target);
-//
-//            return convertView;
-//        }
 }
 

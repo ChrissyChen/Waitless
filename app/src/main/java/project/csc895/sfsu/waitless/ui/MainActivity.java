@@ -42,13 +42,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 //        ArrayList<String> cuisineTags = new ArrayList<>();
-//        cuisineTags.add("American");
-//        cuisineTags.add("Pancake");
-//        Restaurant restaurant = new Restaurant("iHop", cuisineTags);
+//        cuisineTags.add("Japanese");
+//        Restaurant restaurant = new Restaurant("Tokyo Village", cuisineTags);
 //        mDatabase.child("restaurants").push().setValue(restaurant);
 //
-//        Log.d(TAG, "test to write Restaurant iHop");
-//
+//        Log.d(TAG, "test to write Restaurant j");
+
 //
 //        ArrayList<String> cuisineTags2 = new ArrayList<>();
 //        cuisineTags2.add("Chinese");
