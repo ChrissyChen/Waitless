@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 //import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,8 +46,8 @@ public class SearchActivity extends AppCompatActivity {
     public static final String NAME_CHILD = "name";
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private RecyclerView mRecyclerView;
-//    private FirebaseRecyclerAdapter mAdapter;
-    private SearchRestaurantAdapter mAdapter;
+    private FirebaseRecyclerAdapter mAdapter;
+    //private SearchRestaurantAdapter mAdapter;
     private EditText mSearchBarEditText;
     private Button mSearchButton;
     private TextView mNoResultTextView;
@@ -100,53 +101,50 @@ public class SearchActivity extends AppCompatActivity {
 //        });
 
 
-
         mNoResultTextView = (TextView) findViewById(R.id.noResult);
-//        mRecyclerView = (RecyclerView) findViewById(R.id.restaurantList);
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-//        mSearchButton = (Button) findViewById(R.id.searchButton);
-//        mSearchButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String queryText = mSearchBarEditText.getText().toString();
-//                Log.d(TAG, "user types the keyword: " + queryText);
-//                Query query = mDatabase.child(RESTAURANT_CHILD)
-//                        .orderByChild(NAME_CHILD)
-//                        .startAt(queryText)
-//                        ;
-//
-//                mAdapter = new FirebaseRecyclerAdapter<Restaurant, RestaurantViewHolder>(
-//                        Restaurant.class,
-//                        R.layout.item_restaurant_brief_info,
-//                        RestaurantViewHolder.class,
-//                        query) {
-//                    @Override
-//                    protected void populateViewHolder(RestaurantViewHolder viewHolder, Restaurant restaurant, int position) {
-//                        //// TODO: 9/25/17
-//                        viewHolder.setName(restaurant.getName());
-//                        viewHolder.setCuisine(restaurant.getCuisineTagsString());
-//                    }
-//                };
-//
-//                mRecyclerView.setAdapter(mAdapter);
-//            }
-//        });
-
-
-
         mRecyclerView = (RecyclerView) findViewById(R.id.restaurantList);
-
-
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mSearchButton = (Button) findViewById(R.id.searchButton);
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchRestaurant();
-                Log.d(TAG, "search button is clicked: search message");
+                String queryText = mSearchBarEditText.getText().toString();
+                Log.d(TAG, "user types the keyword: " + queryText);
+                Query query = mDatabase.child(RESTAURANT_CHILD)
+                        .orderByChild(NAME_CHILD)
+                        .startAt(queryText);
+
+                mAdapter = new FirebaseRecyclerAdapter<Restaurant, RestaurantViewHolder>(
+                        Restaurant.class,
+                        R.layout.item_restaurant_brief_info,
+                        RestaurantViewHolder.class,
+                        query) {
+                    @Override
+                    protected void populateViewHolder(RestaurantViewHolder viewHolder, Restaurant restaurant, int position) {
+                        //// TODO: 9/25/17
+                        viewHolder.setName(restaurant.getName());
+                        viewHolder.setCuisine(restaurant.getCuisineTagsString());
+                    }
+                };
+
+                mRecyclerView.setAdapter(mAdapter);
             }
         });
+
+
+//        mRecyclerView = (RecyclerView) findViewById(R.id.restaurantList);
+//
+//
+//
+//        mSearchButton = (Button) findViewById(R.id.searchButton);
+//        mSearchButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                searchRestaurant();
+//                Log.d(TAG, "search button is clicked: search message");
+//            }
+//        });
     }
 
     @Override
@@ -180,12 +178,13 @@ public class SearchActivity extends AppCompatActivity {
             super(itemView);
             mImageField = (ImageButton) itemView.findViewById(R.id.restaurantImage);
             mNameField = (TextView) itemView.findViewById(R.id.restaurantName);
-            //mCuisineField = (TextView) itemView.findViewById(R.id.restaurantCuisineTags);
+            mCuisineField = (TextView) itemView.findViewById(R.id.restaurantCuisineTags);
         }
 
         public void setImage() {
             //// TODO: 9/25/17
         }
+
         public void setName(String name) {
             mNameField.setText(name);
         }
@@ -208,51 +207,51 @@ public class SearchActivity extends AppCompatActivity {
                 .orderByChild(NAME_CHILD)
                 .startAt(queryText);
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // dataSnapshot is the "restaurants" node with all children with name starts with queryText
-                    for (DataSnapshot restaurantSnapshot : dataSnapshot.getChildren()) {
-                        Restaurant restaurant = new Restaurant((HashMap<String, String>) restaurantSnapshot.getValue());
-                        restaurantList.add(restaurant);
-                    }
-                    mAdapter = new SearchRestaurantAdapter(restaurantList);
-                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-                    mRecyclerView.setLayoutManager(mLayoutManager);
-                    mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-                    mRecyclerView.setAdapter(mAdapter);
-
-
-                } else {
-                    Log.d(TAG, "no result found");
-                    // show a no result found message
-                    mRecyclerView.setAdapter(null);
-                    mNoResultTextView.setVisibility(View.VISIBLE);
-//                    mRecyclerView.setEmptyView(mNoResultTextView);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-//        mAdapter = new FirebaseRecyclerAdapter<Restaurant, RestaurantViewHolder>(
-//                Restaurant.class,
-//                R.layout.item_restaurant_brief_info,
-//                RestaurantViewHolder.class,
-//                query) {
+//        query.addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
-//            protected void populateViewHolder(RestaurantViewHolder viewHolder, Restaurant restaurant, int position) {
-//                //// TODO: 9/25/17
-//                viewHolder.setName(restaurant.getName());
-//                viewHolder.setCuisine(restaurant.getCuisineTagsString());
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.exists()) {
+//                    // dataSnapshot is the "restaurants" node with all children with name starts with queryText
+//                    for (DataSnapshot restaurantSnapshot : dataSnapshot.getChildren()) {
+//                        Restaurant restaurant = new Restaurant((HashMap<String, String>) restaurantSnapshot.getValue());
+//                        restaurantList.add(restaurant);
+//                    }
+//                    mAdapter = new SearchRestaurantAdapter(restaurantList);
+//                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+//                    mRecyclerView.setLayoutManager(mLayoutManager);
+//                    mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+//                    mRecyclerView.setAdapter(mAdapter);
+//
+//
+//                } else {
+//                    Log.d(TAG, "no result found");
+//                    // show a no result found message
+//                    mRecyclerView.setAdapter(null);
+//                    mNoResultTextView.setVisibility(View.VISIBLE);
+////                    mRecyclerView.setEmptyView(mNoResultTextView);
+//                }
 //            }
-//        };
-//        mRecyclerView.setAdapter(mAdapter);
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
+
+        mAdapter = new FirebaseRecyclerAdapter<Restaurant, RestaurantViewHolder>(
+                Restaurant.class,
+                R.layout.item_restaurant_brief_info,
+                RestaurantViewHolder.class,
+                query) {
+            @Override
+            protected void populateViewHolder(RestaurantViewHolder viewHolder, Restaurant restaurant, int position) {
+                //// TODO: 9/25/17
+                viewHolder.setName(restaurant.getName());
+                viewHolder.setCuisine(restaurant.getCuisineTagsString());
+            }
+        };
+        mRecyclerView.setAdapter(mAdapter);
 
 
 //        query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -282,32 +281,33 @@ public class SearchActivity extends AppCompatActivity {
 //        });
     }
 
-    public class SearchRestaurantAdapter extends RecyclerView.Adapter<RestaurantViewHolder> {
-        private List<Restaurant> restaurantList;
+//    public class SearchRestaurantAdapter extends RecyclerView.Adapter<RestaurantViewHolder> {
+//        private List<Restaurant> restaurantList;
+//
+//        public SearchRestaurantAdapter(List<Restaurant> restaurantList) {
+//            this.restaurantList = restaurantList;
+//        }
+//
+//        @Override
+//        public RestaurantViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//            View itemView = LayoutInflater.from(parent.getContext())
+//                    .inflate(R.layout.item_restaurant_brief_info, parent, false);
+//            return new RestaurantViewHolder(itemView);
+//        }
+//
+//        @Override
+//        public void onBindViewHolder(RestaurantViewHolder viewHolder, int position) {
+//            Restaurant restaurant = restaurantList.get(position);
+//            //// TODO: 9/26/17
+//            viewHolder.setName(restaurant.getName());
+//            //viewHolder.setCuisine(restaurant.getCuisineTagsString());
+//        }
+//
+//        @Override
+//        public int getItemCount() {
+//            return restaurantList.size();
+//        }
 
-        public SearchRestaurantAdapter(List<Restaurant> restaurantList) {
-            this.restaurantList = restaurantList;
-        }
-
-        @Override
-        public RestaurantViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_restaurant_brief_info, parent, false);
-            return new RestaurantViewHolder(itemView);
-        }
-
-        @Override
-        public void onBindViewHolder(RestaurantViewHolder viewHolder, int position) {
-            Restaurant restaurant = restaurantList.get(position);
-            //// TODO: 9/26/17
-            viewHolder.setName(restaurant.getName());
-            //viewHolder.setCuisine(restaurant.getCuisineTagsString());
-        }
-
-        @Override
-        public int getItemCount() {
-            return restaurantList.size();
-        }
 
 //        private ArrayList<Restaurant> restaurantList;
 //        private Context mContext;
@@ -357,6 +357,5 @@ public class SearchActivity extends AppCompatActivity {
 //
 //            return convertView;
 //        }
-    }
-
 }
+

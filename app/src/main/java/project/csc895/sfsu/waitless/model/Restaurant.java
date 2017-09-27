@@ -26,12 +26,14 @@ public class Restaurant {
     public Restaurant() {
     }
 
-    public Restaurant(String name) {
+    public Restaurant(String name, List<String> cuisineTags) {
         this.name = name;
+        this.cuisineTags = cuisineTags;
     }
-    public Restaurant(Map<String, String> map) {
-        this(map.get("name"));
-    }
+
+//    public Restaurant(Map<String, String> map) {
+//        this(map.get("name"));
+//    }
 
     public Restaurant(String restaurantID, String name, String imageUrl, String streetAddress,
                       String city, String state, String zip, String telephone,
