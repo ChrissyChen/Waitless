@@ -12,8 +12,8 @@ public class Test_sendDataToFirebase {
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     public void writeNewRestaurant(String id, String name, ArrayList<String> cuisineTags) {
-        Restaurant restaurant = new Restaurant(name, cuisineTags);
-        mDatabase.child("restaurants").child(id).setValue(restaurant);
+//        Restaurant restaurant = new Restaurant(name, cuisineTags);
+//        mDatabase.child("restaurants").child(id).setValue(restaurant);
     }
 
 }

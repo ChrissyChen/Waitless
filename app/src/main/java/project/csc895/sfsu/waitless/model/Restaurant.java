@@ -26,6 +26,13 @@ public class Restaurant {
     public Restaurant() {
     }
 
+    public Restaurant(String name) {
+        this.name = name;
+    }
+    public Restaurant(Map<String, String> map) {
+        this(map.get("name"));
+    }
+
     public Restaurant(String restaurantID, String name, String imageUrl, String streetAddress,
                       String city, String state, String zip, String telephone,
                       Map<String, Date> openTime, List<String> cuisineTags,
@@ -46,11 +53,6 @@ public class Restaurant {
         this.email = email;
         this.password = password;
         this.tables = tables;
-    }
-
-    public Restaurant(String name, List<String> cuisineTags) {
-        this.name = name;
-        this.cuisineTags = cuisineTags;
     }
 
     public String getRestaurantID() {
