@@ -15,17 +15,10 @@ import android.view.MenuItem;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-
 import project.csc895.sfsu.waitless.R;
-import project.csc895.sfsu.waitless.Test_sendDataToFirebase;
-import project.csc895.sfsu.waitless.model.Dish;
-import project.csc895.sfsu.waitless.model.Restaurant;
 
 public class MainActivity extends AppCompatActivity {
 

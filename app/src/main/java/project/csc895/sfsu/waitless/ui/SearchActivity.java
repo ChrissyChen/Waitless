@@ -1,9 +1,7 @@
 package project.csc895.sfsu.waitless.ui;
 
+import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,10 +14,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
-
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,16 +22,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import project.csc895.sfsu.waitless.R;
 import project.csc895.sfsu.waitless.model.Restaurant;
 
 public class SearchActivity extends AppCompatActivity {
 
     private static final String TAG = "Search Activity";
+    public final static String EXTRA_RESTAURANT = "Pass Restaurant";
     public static final String RESTAURANT_CHILD = "restaurants";
     public static final String CUISINE_TAG_CHILD = "cuisineTags";
     public static final String NAME_CHILD = "name";
@@ -56,7 +47,7 @@ public class SearchActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
 
         Intent intent = getIntent();
-        String searchTag = intent.getStringExtra(HomeFragment.EXTRA_MESSAGE);
+        String searchTag = intent.getStringExtra(HomeFragment.EXTRA_SEARCH);
         Log.d(TAG, searchTag);
 
         mSearchBarEditText = (EditText) findViewById(R.id.searchBarEditText);
@@ -99,9 +90,11 @@ public class SearchActivity extends AppCompatActivity {
                 query) {
             @Override
             protected void populateViewHolder(RestaurantViewHolder viewHolder, Restaurant restaurant, int position) {
-                //// TODO: 9/25/17
+                //// TODO: 9/25/17 image
                 viewHolder.setName(restaurant.getName());
                 viewHolder.setCuisine(restaurant.getCuisineTagsString());
+
+                viewHolder.onClick(restaurant);
             }
         };
         mRecyclerView.setAdapter(mAdapter);
@@ -151,6 +144,18 @@ public class SearchActivity extends AppCompatActivity {
 
         public void setCuisine(String message) {
             mCuisineField.setText(message);
+        }
+
+        public void onClick(final Restaurant restaurant) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, RestaurantActivity.class);
+                    intent.putExtra(EXTRA_RESTAURANT, restaurant);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 

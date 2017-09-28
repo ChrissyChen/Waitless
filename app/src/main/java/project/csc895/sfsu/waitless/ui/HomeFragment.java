@@ -9,8 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -19,7 +17,7 @@ import project.csc895.sfsu.waitless.R;
 public class HomeFragment extends Fragment{
 
     private static final String TAG = "Home Fragment";
-    public final static String EXTRA_MESSAGE = "Extra Message_" + TAG;
+    public final static String EXTRA_SEARCH = "Pass Search Tag";
     private TextView mSearchTextView;
     private ImageButton mChineseButton, mItalianButton, mJapaneseButton,
             mAmericanButton, mThaiButton, mViewAllButton;
@@ -74,7 +72,7 @@ public class HomeFragment extends Fragment{
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
                 String searchTag = v.getTag().toString();
                 Log.d(TAG, searchTag);
-                intent.putExtra(EXTRA_MESSAGE, searchTag);
+                intent.putExtra(EXTRA_SEARCH, searchTag);
                 startActivity(intent);
 
 //                Fragment  searchFragment = new SearchFragment();
