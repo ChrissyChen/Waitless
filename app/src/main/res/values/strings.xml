@@ -25,4 +25,8 @@
     <string name="search">Search</string>
     <string name="hint_search">Type a restaurant or a cuisine</string>
     <string name="not_found">No restaurant found!</string>
+
+    <string name="getNumber">Get a Number</string>
+    <string name="open">Currently Open</string>
+    <string name="close">Currently Close</string>
 </resources>

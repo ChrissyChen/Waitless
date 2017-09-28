@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -123,13 +124,13 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public static class RestaurantViewHolder extends RecyclerView.ViewHolder {
-        private ImageButton mImageField;
+        private ImageView mImageField;
         private TextView mNameField;
         private TextView mCuisineField;
 
         public RestaurantViewHolder(View itemView) {
             super(itemView);
-            mImageField = (ImageButton) itemView.findViewById(R.id.restaurantImage);
+            mImageField = (ImageView) itemView.findViewById(R.id.restaurantImage);
             mNameField = (TextView) itemView.findViewById(R.id.restaurantName);
             mCuisineField = (TextView) itemView.findViewById(R.id.restaurantCuisineTags);
         }
