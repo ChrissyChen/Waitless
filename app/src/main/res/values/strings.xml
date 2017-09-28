@@ -14,7 +14,7 @@
     <string name="Japanese">Japanese</string>
     <string name="American">American</string>
     <string name="Thai">Thai</string>
-    <string name="restaurant">restaurant</string>
+    <string name="restaurant">Restaurant</string>
     <string name="emptyString"></string>
 
 
@@ -35,4 +35,10 @@
     <string name="telephone">Telephone</string>
     <string name="partyNumber">Party Number</string>
     <string name="confirm">Confirm</string>
+    <string name="congrats">Congrats! You got a number!</string>
+    <string name="number">Number: _____</string>
+    <string name="customerName">Customer Name: _____</string>
+    <string name="createdTime">Created Time: _____</string>
+    <string name="closeButton">Close</string>
+
 </resources>

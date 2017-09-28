@@ -1,52 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:id="@+id/getNumberLinearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/firstName"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/firstName"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="@string/firstName"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/lastName"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="@string/lastName"
-        android:layout_gravity="center"/>
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/telephone"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:ems="10"
-        android:inputType="phone"
         android:hint="@string/telephone"
-        android:layout_gravity="center"/>
+        android:inputType="phone" />
 
     <EditText
         android:id="@+id/partyNumber"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:ems="10"
-        android:inputType="number"
         android:hint="@string/partyNumber"
-        android:layout_gravity="center"/>
+        android:inputType="number" />
 
     <Button
         android:id="@+id/confirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:paddingStart="50dp"
-        android:paddingEnd="50dp"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:paddingEnd="50dp"
+        android:paddingStart="50dp"
         android:text="@string/confirm" />
 </LinearLayout>
