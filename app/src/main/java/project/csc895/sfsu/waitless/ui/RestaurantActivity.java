@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,5 +39,18 @@ public class RestaurantActivity extends AppCompatActivity {
 
         mRestaurantName.setText(restaurant.getName());
         mCuisines.setText(restaurant.getCuisineTagsString());
+        mGetNumberButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RestaurantActivity.this, GetNumberActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
     }
 }
