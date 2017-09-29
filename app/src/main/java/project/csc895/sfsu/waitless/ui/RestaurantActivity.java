@@ -15,6 +15,7 @@ import project.csc895.sfsu.waitless.model.Restaurant;
 public class RestaurantActivity extends AppCompatActivity {
 
     private static final String TAG = "Restaurant Activity";
+    public final static String EXTRA_RESTAURANT_NAME = "Pass Restaurant Name";
     private Restaurant restaurant;
     private ImageView mRestaurantImage;
     private TextView mRestaurantName, mCuisines, mOperateStatus;
@@ -43,6 +44,7 @@ public class RestaurantActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RestaurantActivity.this, GetNumberActivity.class);
+                intent.putExtra(EXTRA_RESTAURANT_NAME, restaurant.getName());
                 v.getContext().startActivity(intent);
             }
         });
