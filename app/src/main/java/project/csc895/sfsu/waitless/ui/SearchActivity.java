@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -54,9 +55,6 @@ public class SearchActivity extends AppCompatActivity {
         mSearchBarEditText = (EditText) findViewById(R.id.searchBarEditText);
         mSearchBarEditText.setText(searchTag);
 
-        if (!searchTag.equals("")) {
-            //searchRestaurantByCuisine();
-        }
 
         LinearLayout searchLinearLayout = (LinearLayout) findViewById(R.id.searchLinearLayout);
         searchLinearLayout.setFocusable(true);    // set editText not on focus
@@ -64,6 +62,12 @@ public class SearchActivity extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.restaurantList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        if (!searchTag.equals("")) {
+            searchRestaurantByCuisine(CUISINE_TAG_CHILD);
+        } else {
+            //display all restaurants
+        }
 
         mSearchButton = (Button) findViewById(R.id.searchButton);
         mSearchButton.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +78,61 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         mNoResultTextView = (TextView) findViewById(R.id.noResult);
+    }
+
+    private void searchRestaurantByCuisine(String cuisine) {
+        final String queryText = mSearchBarEditText.getText().toString();
+        Log.d(TAG, "Search By Cuisine: user types the keyword: " + queryText);
+        Query query = mDatabase.child(RESTAURANT_CHILD)
+                    .orderByChild(cuisine);
+
+        mAdapter = new FirebaseRecyclerAdapter<Restaurant, RestaurantViewHolder>(
+                Restaurant.class,
+                R.layout.item_restaurant_brief_info,
+                RestaurantViewHolder.class,
+                query) {
+            @Override
+            protected void populateViewHolder(RestaurantViewHolder viewHolder, Restaurant restaurant, int position) {
+                //// TODO: 9/25/17 image
+                Log.d(TAG, "Search By Cuisine: inside adapter");
+                if (restaurant.getCuisineTags().contains(queryText)) {
+                    Log.d(TAG, "Search By Cuisine: contains searched cuisine" );
+                    viewHolder.setName(restaurant.getName());
+                    viewHolder.setCuisine(restaurant.getCuisineTagsString());
+                    Log.d(TAG, "Search By Cuisine: set done" );
+
+                    viewHolder.onClick(restaurant);
+                } else {
+                    viewHolder.mImageField.setVisibility(View.GONE);
+                    viewHolder.mNameField.setVisibility(View.GONE);
+                    viewHolder.mCuisineField.setVisibility(View.GONE);
+                    viewHolder.mCardView.setVisibility(View.GONE);
+                    Log.d(TAG, "Search By Cuisine: doesn't contain searched cuisine" );
+                }
+            }
+        };
+        mRecyclerView.setAdapter(mAdapter);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // show no result view
+                if (!dataSnapshot.hasChildren()) {
+                    mRecyclerView.setVisibility(View.GONE);
+                    mNoResultTextView.setVisibility(View.VISIBLE);
+                    Log.d(TAG, "NO RESULT VIEW SHOWS");
+                } else {
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                    mNoResultTextView.setVisibility(View.GONE);
+                    Log.d(TAG, "RESULT VIEW SHOWS");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void searchRestaurantByName(String name) {
@@ -127,12 +186,14 @@ public class SearchActivity extends AppCompatActivity {
         private ImageView mImageField;
         private TextView mNameField;
         private TextView mCuisineField;
+        private CardView mCardView;
 
         public RestaurantViewHolder(View itemView) {
             super(itemView);
             mImageField = (ImageView) itemView.findViewById(R.id.restaurantImage);
             mNameField = (TextView) itemView.findViewById(R.id.restaurantName);
             mCuisineField = (TextView) itemView.findViewById(R.id.restaurantCuisineTags);
+            mCardView = (CardView) itemView.findViewById(R.id.briefInfoCardView);
         }
 
         public void setImage() {
