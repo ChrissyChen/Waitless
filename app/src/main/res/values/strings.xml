@@ -29,6 +29,14 @@
     <string name="getNumber">Get a Number</string>
     <string name="open">Currently Open</string>
     <string name="close">Currently Close</string>
+    <string name="tableSize">Table Size</string>
+    <string name="waitingParty">Waiting Party</string>
+    <string name="estimateTime">Estimate Time</string>
+    <string name="tableA">1 - 2</string>
+    <string name="tableB">3 - 4</string>
+    <string name="tableC">5 - 6</string>
+    <string name="tableD">7+</string>
+    <string name="menu">Menu</string>
 
     <string name="firstName">First Name</string>
     <string name="lastName">Last Name</string>
