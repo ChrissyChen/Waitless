@@ -52,7 +52,7 @@
                     android:textSize="16sp"
                     android:textColor="@color/hintGrey"
                     android:clickable="true"
-                    android:tag="@string/emptyString" />
+                    android:tag="@string/clickedSearchBar" />
 
                 <View
                     android:layout_width="match_parent"
@@ -171,7 +171,7 @@
                             android:adjustViewBounds="true"
                             android:background="@drawable/button_ripple"
                             android:scaleType="fitCenter"
-                            android:tag="@string/emptyString" />
+                            android:tag="@string/viewAll" />
                     </TableRow>
                 </TableLayout>
 

@@ -15,7 +15,8 @@
     <string name="American">American</string>
     <string name="Thai">Thai</string>
     <string name="restaurant">Restaurant</string>
-    <string name="emptyString"></string>
+    <string name="viewAll">View All</string>
+    <string name="clickedSearchBar">Clicked Search Bar</string>
 
 
     <string name="nearby">Nearby</string>

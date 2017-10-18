@@ -37,9 +37,11 @@ public class SearchActivity extends AppCompatActivity {
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private RecyclerView mRecyclerView;
     private FirebaseRecyclerAdapter mAdapter;
+    //private RecyclerView.AdapterDataObserver mObserver;
     private EditText mSearchBarEditText;
     private Button mSearchButton;
     private TextView mNoResultTextView;
+    private String queryText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,43 +50,45 @@ public class SearchActivity extends AppCompatActivity {
 
         overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
 
-        Intent intent = getIntent();
-        String searchTag = intent.getStringExtra(HomeFragment.EXTRA_SEARCH);
-        Log.d(TAG, searchTag);
-
-        mSearchBarEditText = (EditText) findViewById(R.id.searchBarEditText);
-        mSearchBarEditText.setText(searchTag);
-
-
         LinearLayout searchLinearLayout = (LinearLayout) findViewById(R.id.searchLinearLayout);
         searchLinearLayout.setFocusable(true);    // set editText not on focus
         searchLinearLayout.setFocusableInTouchMode(true);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.restaurantList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        if (!searchTag.equals("")) {
-            searchRestaurantByCuisine(CUISINE_TAG_CHILD);
-        } else {
-            //display all restaurants
-        }
-
+        mNoResultTextView = (TextView) findViewById(R.id.noResult);
+        mSearchBarEditText = (EditText) findViewById(R.id.searchBarEditText);
         mSearchButton = (Button) findViewById(R.id.searchButton);
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchRestaurantByName(NAME_CHILD);
+                queryText = mSearchBarEditText.getText().toString();
+                searchRestaurantByName(NAME_CHILD, queryText);
             }
         });
 
-        mNoResultTextView = (TextView) findViewById(R.id.noResult);
+        Intent intent = getIntent();
+        String searchTag = intent.getStringExtra(HomeFragment.EXTRA_SEARCH);
+        Log.d(TAG, searchTag);
+
+        // first init when user gets to search page by clicking on a cuisine tag or search bar
+        if (searchTag.equals("View All")) {   // display all restaurants
+            mSearchBarEditText.setText(searchTag);
+            displayAllRestaurants(NAME_CHILD);
+        } else if (searchTag.equals("Clicked Search Bar")) {
+
+        } else { // user clicked on an individual cuisine button
+            mSearchBarEditText.setText(searchTag);
+            queryText = mSearchBarEditText.getText().toString();
+            searchRestaurantByCuisine(CUISINE_TAG_CHILD, queryText);
+        }
     }
 
-    private void searchRestaurantByCuisine(String cuisine) {
-        final String queryText = mSearchBarEditText.getText().toString();
+    private void searchRestaurantByCuisine(String cuisine, final String queryText) {
+        //final String queryText = mSearchBarEditText.getText().toString();
         Log.d(TAG, "Search By Cuisine: user types the keyword: " + queryText);
         Query query = mDatabase.child(RESTAURANT_CHILD)
-                    .orderByChild(cuisine);
+                .orderByChild(cuisine);
 
         mAdapter = new FirebaseRecyclerAdapter<Restaurant, RestaurantViewHolder>(
                 Restaurant.class,
@@ -110,33 +114,38 @@ public class SearchActivity extends AppCompatActivity {
                     Log.d(TAG, "Search By Cuisine: doesn't contain searched cuisine" );
                 }
             }
+            
+            //// TODO: 10/17/17 no result page shows 
+//            @Override
+//            public void onDataChanged() {
+//                super.onDataChanged();
+//                int size = mAdapter.getItemCount(); // 7 total
+//                Log.d(TAG, "Search By Cuisine: size = " + size);
+//
+//                int num = mRecyclerView.getChildCount(); // 0
+//                Log.d(TAG, "Search By Cuisine: num = " + num);
+//
+//                mObserver = new RecyclerView.AdapterDataObserver() {
+//                    @Override
+//                    public void onItemRangeInserted(int positionStart, int itemCount) {
+//                        //perform check and show/hide empty view
+//                    }
+//
+//                    @Override
+//                    public void onItemRangeRemoved(int positionStart, int itemCount) {
+//                        //perform check and show/hide empty view
+//                        mNoResultTextView.setVisibility(View.VISIBLE);
+//                        Log.d(TAG, "NO RESULT VIEW SHOWS");
+//                    }
+//                };
+//                mAdapter.registerAdapterDataObserver(mObserver);
+//            }
         };
         mRecyclerView.setAdapter(mAdapter);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // show no result view
-                if (!dataSnapshot.hasChildren()) {
-                    mRecyclerView.setVisibility(View.GONE);
-                    mNoResultTextView.setVisibility(View.VISIBLE);
-                    Log.d(TAG, "NO RESULT VIEW SHOWS");
-                } else {
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                    mNoResultTextView.setVisibility(View.GONE);
-                    Log.d(TAG, "RESULT VIEW SHOWS");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
-    private void searchRestaurantByName(String name) {
-        String queryText = mSearchBarEditText.getText().toString();
+    private void searchRestaurantByName(String name, String queryText) {
+        //String queryText = mSearchBarEditText.getText().toString();
         Log.d(TAG, "user types the keyword: " + queryText);
         Query query = mDatabase.child(RESTAURANT_CHILD)
                 .orderByChild(name)
@@ -180,6 +189,11 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void displayAllRestaurants(String name) {
+        String searchText = "";
+        searchRestaurantByName(name, searchText);
     }
 
     public static class RestaurantViewHolder extends RecyclerView.ViewHolder {
