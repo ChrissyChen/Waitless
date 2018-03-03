@@ -39,7 +39,7 @@ public class RestaurantActivity extends AppCompatActivity {
         mGetNumberButton = (Button) findViewById(R.id.getNumberButton);
 
         mRestaurantName.setText(restaurant.getName());
-        mCuisines.setText(restaurant.getCuisineTagsString());
+        mCuisines.setText(restaurant.getCuisine());
         mGetNumberButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

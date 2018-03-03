@@ -32,7 +32,7 @@ public class SearchActivity extends AppCompatActivity {
     private static final String TAG = "Search Activity";
     public final static String EXTRA_RESTAURANT = "Pass Restaurant";
     public static final String RESTAURANT_CHILD = "restaurants";
-    public static final String CUISINE_TAG_CHILD = "cuisineTags";
+    public static final String CUISINE_CHILD = "cuisine";
     public static final String NAME_CHILD = "name";
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private RecyclerView mRecyclerView;
@@ -80,7 +80,7 @@ public class SearchActivity extends AppCompatActivity {
         } else { // user clicked on an individual cuisine button
             mSearchBarEditText.setText(searchTag);
             queryText = mSearchBarEditText.getText().toString();
-            searchRestaurantByCuisine(CUISINE_TAG_CHILD, queryText);
+            searchRestaurantByCuisine(CUISINE_CHILD, queryText);
         }
     }
 
@@ -99,10 +99,10 @@ public class SearchActivity extends AppCompatActivity {
             protected void populateViewHolder(RestaurantViewHolder viewHolder, Restaurant restaurant, int position) {
                 //// TODO: 9/25/17 image
                 Log.d(TAG, "Search By Cuisine: inside adapter");
-                if (restaurant.getCuisineTags().contains(queryText)) {
+                if (restaurant.getCuisine().contains(queryText)) {
                     Log.d(TAG, "Search By Cuisine: contains searched cuisine" );
                     viewHolder.setName(restaurant.getName());
-                    viewHolder.setCuisine(restaurant.getCuisineTagsString());
+                    viewHolder.setCuisine(restaurant.getCuisine());
                     Log.d(TAG, "Search By Cuisine: set done" );
 
                     viewHolder.onClick(restaurant);
@@ -161,7 +161,7 @@ public class SearchActivity extends AppCompatActivity {
             protected void populateViewHolder(RestaurantViewHolder viewHolder, Restaurant restaurant, int position) {
                 //// TODO: 9/25/17 image
                 viewHolder.setName(restaurant.getName());
-                viewHolder.setCuisine(restaurant.getCuisineTagsString());
+                viewHolder.setCuisine(restaurant.getCuisine());
 
                 viewHolder.onClick(restaurant);
             }
