@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/basicInfoCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="6dp">
+
+            <ImageView
+                android:id="@+id/restaurantImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:adjustViewBounds="true"
+                app:srcCompat="@drawable/coming_soon_pic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:padding="9dp">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:text="TextView"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/cuisine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:text="TextView"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/getNumberCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/operateStatusTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                android:text="@string/open"
+                android:textSize="15sp"/>
+
+            <Button
+                android:id="@+id/getNumberButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="2dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textColor="@color/darkGrey"
+                android:text="@string/getNumber"
+                android:visibility="visible"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/tableInfoCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp">
+
+        <android.support.v7.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:columnCount="3"
+            app:rowCount="5"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            app:useDefaultMargins="true">
+
+            <TextView
+                android:id="@+id/tableSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                android:gravity="center"
+                app:layout_gravity="fill_horizontal"
+                android:text="@string/tableSize" />
+
+            <TextView
+                android:id="@+id/waitingParty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                android:gravity="center"
+                app:layout_gravity="fill_horizontal"
+                android:text="@string/waitingParty" />
+
+            <TextView
+                android:id="@+id/estimateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                android:gravity="center"
+                app:layout_gravity="fill_horizontal"
+                android:text="@string/estimateTime" />
+
+            <TextView
+                android:id="@+id/tableA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                android:gravity="center"
+                app:layout_gravity="fill_horizontal"
+                android:text="@string/tableA" />
+
+            <TextView
+                android:id="@+id/tableAWaitingParty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                android:gravity="center"
+                app:layout_gravity="fill_horizontal"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/tableAEstimateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                android:gravity="center"
+                app:layout_gravity="fill_horizontal"
+                android:text="0 min" />
+
+            <TextView
+                android:id="@+id/tableB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                android:gravity="center"
+                app:layout_gravity="fill_horizontal"
+                android:text="@string/tableB" />
+
+            <TextView
+                android:id="@+id/tableBWaitingParty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                android:gravity="center"
+                app:layout_gravity="fill_horizontal"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/tableBEstimateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                android:gravity="center"
+                app:layout_gravity="fill_horizontal"
+                android:text="0 min" />
+
+            <TextView
+                android:id="@+id/tableC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                android:gravity="center"
+                app:layout_gravity="fill_horizontal"
+                android:text="@string/tableC" />
+
+            <TextView
+                android:id="@+id/tableCWaitingParty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                android:gravity="center"
+                app:layout_gravity="fill_horizontal"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/tableCEstimateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                android:gravity="center"
+                app:layout_gravity="fill_horizontal"
+                android:text="0 min" />
+
+            <TextView
+                android:id="@+id/tableD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                android:gravity="center"
+                app:layout_gravity="fill_horizontal"
+                android:text="@string/tableD" />
+
+            <TextView
+                android:id="@+id/tableDWaitingParty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                android:gravity="center"
+                app:layout_gravity="fill_horizontal"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/tableDEstimateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                android:gravity="center"
+                app:layout_gravity="fill_horizontal"
+                android:text="0 min" />
+
+        </android.support.v7.widget.GridLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/detailedInfoCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:columnCount="2"
+            app:rowCount="4"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <ImageView
+                android:id="@+id/addressIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="6dp"
+                app:srcCompat="@drawable/ic_location_on_black_24px" />
+
+            <TextView
+                android:id="@+id/restaurantAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Address" />
+
+            <ImageView
+                android:id="@+id/telephoneIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="6dp"
+                app:srcCompat="@drawable/ic_phone_black_24px" />
+
+            <TextView
+                android:id="@+id/restaurantTelephone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/telephone" />
+
+            <ImageView
+                android:id="@+id/operationTimeIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="6dp"
+                app:srcCompat="@drawable/ic_access_time_black_24px" />
+
+            <TextView
+                android:id="@+id/restaurantOperationTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Operation Time" />
+
+            <ImageView
+                android:id="@+id/menuIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="3"
+                android:layout_column="0"
+                android:layout_marginStart="10dp"
+                app:srcCompat="@drawable/ic_restaurant_menu_black_24px" />
+
+            <TextView
+                android:id="@+id/restaurantMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/menu" />
+        </GridLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

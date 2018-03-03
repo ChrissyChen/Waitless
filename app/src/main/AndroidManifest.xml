@@ -16,6 +16,8 @@
         </activity>
 
         <activity android:name=".ui.SearchActivity" />
+        <activity android:name=".ui.RestaurantActivity" />
+        <activity android:name=".ui.GetNumberActivity" />
     </application>
 
 </manifest>

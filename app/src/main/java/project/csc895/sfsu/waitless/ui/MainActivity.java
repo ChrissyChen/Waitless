@@ -15,17 +15,10 @@ import android.view.MenuItem;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-
 import project.csc895.sfsu.waitless.R;
-import project.csc895.sfsu.waitless.Test_sendDataToFirebase;
-import project.csc895.sfsu.waitless.model.Dish;
-import project.csc895.sfsu.waitless.model.Restaurant;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,13 +35,25 @@ public class MainActivity extends AppCompatActivity {
 
 
 //        ArrayList<String> cuisineTags = new ArrayList<>();
-//        cuisineTags.add("American");
-//        cuisineTags.add("Pancake");
-//        Restaurant restaurant = new Restaurant("iHop", cuisineTags);
-//        mDatabase.child("restaurants").child("2").setValue(restaurant);
+//        cuisineTags.add("Chinese");
+//        cuisineTags.add("Taiwanese");
+//        cuisineTags.add("Breakfast");
+//        Restaurant restaurant = new Restaurant("Joy Restaurant", cuisineTags);
+//        mDatabase.child("restaurants").push().setValue(restaurant);
 //
-//        Log.d(TAG, "test to write Restaurant");
+//        Log.d(TAG, "test to write Restaurant j");
+
 //
+//        ArrayList<String> cuisineTags2 = new ArrayList<>();
+//        cuisineTags2.add("Chinese");
+//        cuisineTags2.add("Hot Pot");
+//        restaurant = new Restaurant("Fashion Wok", cuisineTags2);
+//        mDatabase.child("restaurants").push().setValue(restaurant);
+//
+//        Log.d(TAG, "test to write restaurant Fashion Wok");
+
+
+
 //        Dish dish = new Dish("2", "chicken", 13.95, "002");
 //        mDatabase.child("dishes").push().setValue(dish).addOnSuccessListener(new OnSuccessListener<Void>() {
 //            @Override
@@ -56,19 +61,14 @@ public class MainActivity extends AppCompatActivity {
 //                Log.d(TAG, "!!!!!!!!!!!!!!!!!!!");
 //            }
 //        });
-
+//
 //        Log.d(TAG, "test to write Dish");
 
         //isGooglePlayServicesAvailable(this);
 
 
 
-//        ArrayList<String> cuisineTags2 = new ArrayList<>();
-//        cuisineTags2.add("American");
-//        cuisineTags2.add("Burger");
-//        test.writeNewRestaurant("2", "iHop", cuisineTags);
-//
-//        Log.d(TAG, "test to write 2");
+
 
 
 
