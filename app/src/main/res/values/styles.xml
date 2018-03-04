@@ -8,9 +8,17 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!--<style name="ErrorText" parent="TextAppearance.AppCompat.Small">-->
-        <!--<item name="android:textStyle">bold|italic</item>-->
-        <!--<item name="android:textColor">@color/error_text_colour</item>-->
-    <!--</style>-->
+    <!-- Customized No Title theme. -->
+    <style name="NoActionTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
+    <!-- Splash Screen theme. -->
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+    
 </resources>
