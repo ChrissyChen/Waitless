@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,8 @@ import android.view.MenuItem;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -23,6 +27,9 @@ import project.csc895.sfsu.waitless.R;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Main Activity";
+    private static final String ARGS_USER_ID = "userID";
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     @Override
@@ -30,92 +37,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
+        Log.d(TAG + " UserEmail", mFirebaseUser.getEmail());
+
         setupBottomNavigationView();
-        Log.d(TAG, "1");
-
-
-//        ArrayList<String> cuisineTags = new ArrayList<>();
-//        cuisineTags.add("Chinese");
-//        cuisineTags.add("Taiwanese");
-//        cuisineTags.add("Breakfast");
-//        Restaurant restaurant = new Restaurant("Joy Restaurant", cuisineTags);
-//        mDatabase.child("restaurants").push().setValue(restaurant);
-//
-//        Log.d(TAG, "test to write Restaurant j");
-
-//
-//        ArrayList<String> cuisineTags2 = new ArrayList<>();
-//        cuisineTags2.add("Chinese");
-//        cuisineTags2.add("Hot Pot");
-//        restaurant = new Restaurant("Fashion Wok", cuisineTags2);
-//        mDatabase.child("restaurants").push().setValue(restaurant);
-//
-//        Log.d(TAG, "test to write restaurant Fashion Wok");
-
-
-
-//        Dish dish = new Dish("2", "chicken", 13.95, "002");
-//        mDatabase.child("dishes").push().setValue(dish).addOnSuccessListener(new OnSuccessListener<Void>() {
-//            @Override
-//            public void onSuccess(Void aVoid) {
-//                Log.d(TAG, "!!!!!!!!!!!!!!!!!!!");
-//            }
-//        });
-//
-//        Log.d(TAG, "test to write Dish");
-
-        //isGooglePlayServicesAvailable(this);
-
-
-
-
-
-
-
-//        textInputLayout = (TextInputLayout) findViewById(R.id.text_input_layout);
-//        editText = (EditText) findViewById(R.id.edit_text);
-//
-//        textInputLayout.setHint(getString(R.string.hint));
-//        editText.setOnEditorActionListener(ActionListener.newInstance(this));
-
-//    private boolean shouldShowError() {
-//        int textLength = editText.getText().length();
-//        return textLength > 0 && textLength < MIN_TEXT_LENGTH;
-//    }
-//
-//    private void showError() {
-//        textInputLayout.setError(getString(R.string.error));
-//    }
-//
-//    private void hideError() {
-//        textInputLayout.setError(EMPTY_STRING);
-//    }
-//
-//    private static final class ActionListener implements TextView.OnEditorActionListener {
-//        private final WeakReference<MainActivity> mainActivityWeakReference;
-//
-//        public static ActionListener newInstance(MainActivity mainActivity) {
-//            WeakReference<MainActivity> mainActivityWeakReference = new WeakReference<>(mainActivity);
-//            return new ActionListener(mainActivityWeakReference);
-//        }
-//
-//        private ActionListener(WeakReference<MainActivity> mainActivityWeakReference) {
-//            this.mainActivityWeakReference = mainActivityWeakReference;
-//        }
-//
-//        @Override
-//        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//            MainActivity mainActivity = mainActivityWeakReference.get();
-//            if (mainActivity != null) {
-//                if (actionId == EditorInfo.IME_ACTION_GO && mainActivity.shouldShowError()) {
-//                    mainActivity.showError();
-//                } else {
-//                    mainActivity.hideError();
-//                }
-//            }
-//            return true;
-//        }
-//    }
 
     }
 
@@ -158,6 +85,11 @@ public class MainActivity extends AppCompatActivity {
     protected void pushFragment(Fragment fragment) {
         if (fragment == null) return;
 
+        // pass data from activity to fragment
+//        Bundle args = new Bundle();
+//        args.putString(ARGS_USER_ID, restaurantID);
+//        fragment.setArguments(args);
+
         FragmentManager fragmentManager = getFragmentManager();
         if (fragmentManager != null) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -178,5 +110,18 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    public void signOut() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("CachedResponse", 0);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.clear();
+        editor.apply();
+
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        mFirebaseAuth.signOut();    // check??
+        finish();
+
     }
 }
