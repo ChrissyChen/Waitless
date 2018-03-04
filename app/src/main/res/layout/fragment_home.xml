@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,9 +15,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:orientation="horizontal" >
+            android:paddingStart="@dimen/activity_horizontal_margin">
 
             <TextView
                 android:id="@+id/cityTextView"
@@ -46,13 +46,13 @@
                     android:id="@+id/searchTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
                     android:layout_marginBottom="4dp"
-                    android:text="@string/hint"
-                    android:textSize="16sp"
-                    android:textColor="@color/hintGrey"
+                    android:layout_marginTop="12dp"
                     android:clickable="true"
-                    android:tag="@string/clickedSearchBar" />
+                    android:tag="@string/clickedSearchBar"
+                    android:text="@string/hint"
+                    android:textColor="@color/hintGrey"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -86,7 +86,6 @@
 
                         <ImageButton
                             android:id="@+id/chineseCuisineButton"
-                            app:srcCompat="@drawable/cuisine_chinese_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
@@ -96,12 +95,11 @@
                             android:adjustViewBounds="true"
                             android:background="@drawable/button_ripple"
                             android:scaleType="fitCenter"
-                            android:tag="@string/Chinese" />
+                            android:tag="@string/Chinese"
+                            app:srcCompat="@drawable/cuisine_chinese_icon" />
 
                         <ImageButton
                             android:id="@+id/italianCuisineButton"
-                            app:srcCompat="@drawable/cuisine_italian_icon"
-                            tools:ignore="ContentDescription"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
@@ -112,11 +110,12 @@
                             android:background="@drawable/button_ripple"
                             android:contentDescription=""
                             android:scaleType="fitCenter"
-                            android:tag="@string/Italian"/>
+                            android:tag="@string/Italian"
+                            app:srcCompat="@drawable/cuisine_italian_icon"
+                            tools:ignore="ContentDescription" />
 
                         <ImageButton
                             android:id="@+id/japaneseCuisineButton"
-                            app:srcCompat="@drawable/cuisine_japanese_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
@@ -126,14 +125,14 @@
                             android:adjustViewBounds="true"
                             android:background="@drawable/button_ripple"
                             android:scaleType="fitCenter"
-                            android:tag="@string/Japanese" />
+                            android:tag="@string/Japanese"
+                            app:srcCompat="@drawable/cuisine_japanese_icon" />
                     </TableRow>
 
                     <TableRow>
 
                         <ImageButton
                             android:id="@+id/americanCuisineButton"
-                            app:srcCompat="@drawable/cuisine_american_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
@@ -143,11 +142,11 @@
                             android:adjustViewBounds="true"
                             android:background="@drawable/button_ripple"
                             android:scaleType="fitCenter"
-                            android:tag="@string/American" />
+                            android:tag="@string/American"
+                            app:srcCompat="@drawable/cuisine_american_icon" />
 
                         <ImageButton
                             android:id="@+id/thaiCuisineButton"
-                            app:srcCompat="@drawable/cuisine_thai_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
@@ -157,11 +156,11 @@
                             android:adjustViewBounds="true"
                             android:background="@drawable/button_ripple"
                             android:scaleType="fitCenter"
-                            android:tag="@string/Thai" />
+                            android:tag="@string/Thai"
+                            app:srcCompat="@drawable/cuisine_thai_icon" />
 
                         <ImageButton
                             android:id="@+id/viewAllCuisineButton"
-                            app:srcCompat="@drawable/cuisine_viewall_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
@@ -171,7 +170,8 @@
                             android:adjustViewBounds="true"
                             android:background="@drawable/button_ripple"
                             android:scaleType="fitCenter"
-                            android:tag="@string/viewAll" />
+                            android:tag="@string/viewAll"
+                            app:srcCompat="@drawable/cuisine_viewall_icon" />
                     </TableRow>
                 </TableLayout>
 

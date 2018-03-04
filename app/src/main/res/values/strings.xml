@@ -8,7 +8,7 @@
 
 
     <!--for AndroidManifest.xml-->
-    <string name="restaurant_info">Restaurant Information</string>
+    <string name="restaurant_details">Restaurant Details</string>
 
 
 

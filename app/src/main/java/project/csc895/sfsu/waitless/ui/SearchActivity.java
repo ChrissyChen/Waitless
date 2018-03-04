@@ -30,7 +30,7 @@ import project.csc895.sfsu.waitless.model.Restaurant;
 public class SearchActivity extends AppCompatActivity {
 
     private static final String TAG = "Search Activity";
-    public final static String EXTRA_RESTAURANT = "Pass Restaurant";
+    public final static String EXTRA_RESTAURANT_ID = "Pass Restaurant ID";
     public static final String RESTAURANT_CHILD = "restaurants";
     public static final String CUISINE_CHILD = "cuisine";
     public static final String NAME_CHILD = "name";
@@ -228,7 +228,9 @@ public class SearchActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, RestaurantActivity.class);
-                    intent.putExtra(EXTRA_RESTAURANT, restaurant);
+                    String restaurantID = restaurant.getRestaurantID();
+                    intent.putExtra(EXTRA_RESTAURANT_ID, restaurantID);
+                    //intent.putExtra(EXTRA_RESTAURANT, restaurant); // pass restaurant obj
                     context.startActivity(intent);
                 }
             });

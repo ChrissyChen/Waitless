@@ -10,7 +10,7 @@ public class Restaurant implements Serializable {
     private String name;
     private String imageUrl;
     private String address;
-//    private String streetAddress;
+    //    private String streetAddress;
 //    private String city;
 //    private String state;
 //    private String zip;
@@ -27,45 +27,15 @@ public class Restaurant implements Serializable {
     public Restaurant() {
     }
 
-    public Restaurant(String name, String cuisine, String address, String telephone, String managerID, String email, String password) {
+    public Restaurant(String restaurantID, String name, String cuisine, String address, String telephone, String managerID, String email) {
+        this.restaurantID = restaurantID;
         this.name = name;
         this.cuisine = cuisine;
         this.address = address;
         this.telephone = telephone;
         this.managerID = managerID;
         this.email = email;
-        this.password = password;
     }
-//    public Restaurant(String name, List<String> cuisineTags) {
-//        this.name = name;
-//        this.cuisineTags = cuisineTags;
-//    }
-
-//    public Restaurant(Map<String, String> map) {
-//        this(map.get("name"));
-//    }
-
-//    public Restaurant(String restaurantID, String name, String imageUrl, String streetAddress,
-//                      String city, String state, String zip, String telephone,
-//                      Map<String, Date> openTime, List<String> cuisineTags,
-//                      List<String> dishes, String managerID, String email, String password,
-//                      Map<Integer, List<String>> tables) {
-//        this.restaurantID = restaurantID;
-//        this.name = name;
-//        this.imageUrl = imageUrl;
-//        this.streetAddress = streetAddress;
-//        this.city = city;
-//        this.state = state;
-//        this.zip = zip;
-//        this.telephone = telephone;
-//        this.openTime = openTime;
-//        this.cuisineTags = cuisineTags;
-//        this.dishes = dishes;
-//        this.managerID = managerID;
-//        this.email = email;
-//        this.password = password;
-//        this.tables = tables;
-//    }
 
     public String getRestaurantID() {
         return restaurantID;
