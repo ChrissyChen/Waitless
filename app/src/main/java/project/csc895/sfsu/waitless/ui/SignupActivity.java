@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -55,6 +56,7 @@ public class SignupActivity extends AppCompatActivity {
         inputFirstName = (EditText) findViewById(R.id.first_name);
         inputLastName = (EditText) findViewById(R.id.last_name);
         inputPhone = (EditText) findViewById(R.id.user_phone);
+        inputPhone.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -151,7 +153,7 @@ public class SignupActivity extends AppCompatActivity {
             String key = ref.push().getKey();
             Log.d("key:  ", key); // generated random id
 
-            User user = new User(firstName, lastName, phone, email);
+            User user = new User(key, firstName, lastName, phone, email);
             ref.child(key).setValue(user);
         }
 
