@@ -94,6 +94,7 @@
                             android:layout_weight="1"
                             android:adjustViewBounds="true"
                             android:background="@drawable/button_ripple"
+                            android:contentDescription="@string/Chinese"
                             android:scaleType="fitCenter"
                             android:tag="@string/Chinese"
                             app:srcCompat="@drawable/cuisine_chinese_icon" />
@@ -108,7 +109,7 @@
                             android:layout_weight="1"
                             android:adjustViewBounds="true"
                             android:background="@drawable/button_ripple"
-                            android:contentDescription=""
+                            android:contentDescription="@string/Italian"
                             android:scaleType="fitCenter"
                             android:tag="@string/Italian"
                             app:srcCompat="@drawable/cuisine_italian_icon"
@@ -124,6 +125,7 @@
                             android:layout_weight="1"
                             android:adjustViewBounds="true"
                             android:background="@drawable/button_ripple"
+                            android:contentDescription="@string/Japanese"
                             android:scaleType="fitCenter"
                             android:tag="@string/Japanese"
                             app:srcCompat="@drawable/cuisine_japanese_icon" />
@@ -141,6 +143,7 @@
                             android:layout_weight="1"
                             android:adjustViewBounds="true"
                             android:background="@drawable/button_ripple"
+                            android:contentDescription="@string/American"
                             android:scaleType="fitCenter"
                             android:tag="@string/American"
                             app:srcCompat="@drawable/cuisine_american_icon" />
@@ -155,6 +158,7 @@
                             android:layout_weight="1"
                             android:adjustViewBounds="true"
                             android:background="@drawable/button_ripple"
+                            android:contentDescription="@string/Thai"
                             android:scaleType="fitCenter"
                             android:tag="@string/Thai"
                             app:srcCompat="@drawable/cuisine_thai_icon" />
@@ -169,6 +173,7 @@
                             android:layout_weight="1"
                             android:adjustViewBounds="true"
                             android:background="@drawable/button_ripple"
+                            android:contentDescription="@string/viewAll"
                             android:scaleType="fitCenter"
                             android:tag="@string/viewAll"
                             app:srcCompat="@drawable/cuisine_viewall_icon" />
@@ -178,19 +183,66 @@
 
             </android.support.v7.widget.CardView>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="@string/hot_restaurant" />
+
             <!-- A CardView that contains a TextView -->
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/hotRestaurantCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+
                 card_view:cardCornerRadius="4dp">
 
-                <TextView
-                    android:id="@+id/info_text2"
+                <GridLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/app_name" />
+                    android:layout_height="wrap_content"
+                    app:columnCount="2"
+                    app:rowCount="2">
+
+                    <ImageView
+                        android:layout_width="155dp"
+                        android:layout_height="82dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_column="0"
+                        android:layout_row="0"
+                        app:srcCompat="@drawable/i_hop" />
+
+                    <ImageView
+                        android:layout_width="170dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_column="1"
+                        android:layout_row="0"
+                        app:srcCompat="@drawable/restaurant_park" />
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="74dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_column="0"
+                        android:layout_row="1"
+                        app:srcCompat="@drawable/din_tai_fung" />
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="75dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_column="1"
+                        android:layout_row="1"
+                        app:srcCompat="@drawable/bbq" />
+
+
+                </GridLayout>
             </android.support.v7.widget.CardView>
 
         </LinearLayout>

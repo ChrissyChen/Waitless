@@ -51,6 +51,7 @@
     <string name="restaurant">Restaurant</string>
     <string name="viewAll">View All</string>
     <string name="clickedSearchBar">Clicked Search Bar</string>
+    <string name="hot_restaurant">Hot Restaurants</string>
 
     <!-- Search Page -->
     <string name="search">Search</string>

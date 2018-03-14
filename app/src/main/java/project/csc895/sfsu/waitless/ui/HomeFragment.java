@@ -31,22 +31,6 @@ public class HomeFragment extends Fragment{
 
         mSearchTextView = (TextView) view.findViewById(R.id.searchTextView);
         showSearchPageOnClick(mSearchTextView);
-//        mSearchButton = (Button) view.findViewById(R.id.searchButton);
-//        showSearchPageOnClick(mSearchButton);
-
-//        mSearchEditText = (EditText)view.findViewById(R.id.searchEditText);
-//
-//        mSearchEditText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (hasFocus) {
-//
-//                }
-//            }
-//        });
-//
-//        showSearchPageOnClick(mSearchEditText);
-        Log.d(TAG, "3");
 
         mChineseButton = (ImageButton)view.findViewById(R.id.chineseCuisineButton);
         mItalianButton = (ImageButton)view.findViewById(R.id.italianCuisineButton);
@@ -60,7 +44,6 @@ public class HomeFragment extends Fragment{
         showSearchPageOnClick(mAmericanButton);
         showSearchPageOnClick(mThaiButton);
         showSearchPageOnClick(mViewAllButton);
-        Log.d(TAG, "4");
 
         return view;
     }
@@ -74,13 +57,6 @@ public class HomeFragment extends Fragment{
                 Log.d(TAG, searchTag);
                 intent.putExtra(EXTRA_SEARCH, searchTag);
                 startActivity(intent);
-
-//                Fragment  searchFragment = new SearchFragment();
-//                FragmentManager fragmentManager = getFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.replace(R.id.rootLayout, searchFragment);
-//                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.commit();
             }
         });
     }
