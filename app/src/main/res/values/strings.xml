@@ -86,10 +86,16 @@
     <!-- Nearby Fragment -->
     <string name="nearby">Nearby</string>
 
-    <!-- Profile Fragment -->
+    <!-- Drawer -->
     <string name="profile">Profile</string>
     <string name="waitlist_history">Waitlist History</string>
-    <string name="favorite">Favorite Restaurants</string>
+    <!--<string name="favorite">Favorite Restaurants</string>-->
     <string name="sign_out">Sign Out</string>
+
+    <!-- Profile Fragment -->
+    <string name="avatar">Avatar</string>
+    <string name="btn_save">Save</string>
+
+
 
 </resources>

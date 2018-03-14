@@ -7,7 +7,7 @@
         android:icon="@drawable/logo_waitless"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/NoActionTheme">
         <activity
             android:name=".ui.SplashActivity"
             android:label="@string/app_name"
@@ -36,14 +36,17 @@
 
         <activity
             android:name=".ui.SearchActivity"
+            android:theme="@style/AppTheme"
             android:label="@string/search" />
 
         <activity
             android:name=".ui.RestaurantActivity"
+            android:theme="@style/AppTheme"
             android:label="@string/restaurant_details" />
 
         <activity
             android:name=".ui.GetNumberActivity"
+            android:theme="@style/AppTheme"
             android:label="@string/getNumber" />
 
     </application>

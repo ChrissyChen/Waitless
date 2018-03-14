@@ -3,94 +3,181 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="30dp"
+        android:contentDescription="@string/avatar"
+        app:srcCompat="@drawable/avatar" />
+
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:textColorHint="@color/colorPrimary">
 
-        <ImageView
-            android:id="@+id/avatarImageView"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_vertical_margin"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:layout_gravity="center_horizontal"
-            app:srcCompat="@drawable/default_user_icon" />
-
-        <TextView
-            android:id="@+id/nameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="center_horizontal"
-            android:text="name" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <android.support.v7.widget.CardView
+        <EditText
+            android:id="@+id/first_name"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/hintGrey"
+            android:hint="@string/firstName"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:textColor="@color/darkGrey" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+    </android.support.design.widget.TextInputLayout>
 
-                <LinearLayout
-                    android:id="@+id/historyLinearLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center_vertical"
-                    android:paddingStart="25dp">
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/colorPrimary">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/waitlist_history" />
-                </LinearLayout>
+        <EditText
+            android:id="@+id/last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/hintGrey"
+            android:hint="@string/lastName"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:textColor="@color/darkGrey" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/grey" />
+    </android.support.design.widget.TextInputLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingStart="25dp"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp">
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/colorPrimary">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/favorite" />
-                </LinearLayout>
+        <EditText
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/hintGrey"
+            android:hint="@string/telephone"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:textColor="@color/darkGrey" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/grey" />
+    </android.support.design.widget.TextInputLayout>
 
-                <Button
-                    android:id="@+id/btn_signout"
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_gravity="center"
-                    android:text="@string/sign_out"/>
 
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/btn_save"
+        android:textColor="@color/lightGrey"
+        android:textStyle="bold" />
 
 </LinearLayout>
+
+
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/avatarImageView"-->
+            <!--android:layout_width="150dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="@dimen/activity_vertical_margin"-->
+            <!--android:adjustViewBounds="true"-->
+            <!--android:scaleType="fitCenter"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--app:srcCompat="@drawable/default_user_icon" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/nameTextView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="20dp"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:text="name" />-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<android.support.v7.widget.CardView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent" >-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/historyLinearLayout"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:paddingStart="25dp">-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/waitlist_history" />-->
+                <!--</LinearLayout>-->
+
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="@color/grey" />-->
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:paddingStart="25dp"-->
+                    <!--android:paddingTop="15dp"-->
+                    <!--android:paddingBottom="15dp">-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/favorite" />-->
+                <!--</LinearLayout>-->
+
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="@color/grey" />-->
+
+                <!--<Button-->
+                    <!--android:id="@+id/btn_signout"-->
+                    <!--android:layout_width="125dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="30dp"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:text="@string/sign_out"/>-->
+
+            <!--</LinearLayout>-->
+        <!--</android.support.v7.widget.CardView>-->
+    <!--</LinearLayout>-->
+
+<!--</LinearLayout>-->

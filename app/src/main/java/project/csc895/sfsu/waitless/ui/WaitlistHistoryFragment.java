@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import project.csc895.sfsu.waitless.R;
 
-public class NearbyFragment extends Fragment {
+public class WaitlistHistoryFragment extends Fragment {
     private static final String TAG = "Search Activity";
 
     @Nullable
