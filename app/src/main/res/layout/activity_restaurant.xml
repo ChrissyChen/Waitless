@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.v7.widget.CardView
         android:id="@+id/basicInfoCardView"
@@ -62,8 +63,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingBottom="8dp">
+            android:paddingBottom="8dp"
+            android:paddingTop="10dp">
 
             <TextView
                 android:id="@+id/operateStatusTextView"
@@ -72,7 +73,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="4dp"
                 android:text="@string/open"
-                android:textSize="15sp"/>
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/getNumberButton"
@@ -80,11 +81,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="2dp"
-                android:paddingStart="20dp"
                 android:paddingEnd="20dp"
-                android:textColor="@color/darkGrey"
+                android:paddingStart="20dp"
                 android:text="@string/getNumber"
-                android:visibility="visible"/>
+                android:textColor="@color/darkGrey"
+                android:visibility="visible" />
 
         </LinearLayout>
 
@@ -99,146 +100,146 @@
         <android.support.v7.widget.GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
             app:columnCount="3"
             app:rowCount="5"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
             app:useDefaultMargins="true">
 
             <TextView
                 android:id="@+id/tableSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
                 android:gravity="center"
-                app:layout_gravity="fill_horizontal"
-                android:text="@string/tableSize" />
+                android:text="@string/tableSize"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
 
             <TextView
                 android:id="@+id/waitingParty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
                 android:gravity="center"
-                app:layout_gravity="fill_horizontal"
-                android:text="@string/waitingParty" />
+                android:text="@string/waitingParty"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
 
             <TextView
                 android:id="@+id/estimateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
                 android:gravity="center"
-                app:layout_gravity="fill_horizontal"
-                android:text="@string/estimateTime" />
+                android:text="@string/estimateTime"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
 
             <TextView
                 android:id="@+id/tableA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
                 android:gravity="center"
-                app:layout_gravity="fill_horizontal"
-                android:text="@string/tableA" />
+                android:text="@string/tableA"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
 
             <TextView
                 android:id="@+id/tableAWaitingParty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
                 android:gravity="center"
-                app:layout_gravity="fill_horizontal"
-                android:text="0" />
+                android:text="0"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
 
             <TextView
                 android:id="@+id/tableAEstimateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
                 android:gravity="center"
-                app:layout_gravity="fill_horizontal"
-                android:text="0 min" />
+                android:text="0 min"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
 
             <TextView
                 android:id="@+id/tableB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
                 android:gravity="center"
-                app:layout_gravity="fill_horizontal"
-                android:text="@string/tableB" />
+                android:text="@string/tableB"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
 
             <TextView
                 android:id="@+id/tableBWaitingParty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
                 android:gravity="center"
-                app:layout_gravity="fill_horizontal"
-                android:text="0" />
+                android:text="0"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
 
             <TextView
                 android:id="@+id/tableBEstimateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
                 android:gravity="center"
-                app:layout_gravity="fill_horizontal"
-                android:text="0 min" />
+                android:text="0 min"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
 
             <TextView
                 android:id="@+id/tableC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
                 android:gravity="center"
-                app:layout_gravity="fill_horizontal"
-                android:text="@string/tableC" />
+                android:text="@string/tableC"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
 
             <TextView
                 android:id="@+id/tableCWaitingParty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
                 android:gravity="center"
-                app:layout_gravity="fill_horizontal"
-                android:text="0" />
+                android:text="0"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
 
             <TextView
                 android:id="@+id/tableCEstimateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
                 android:gravity="center"
-                app:layout_gravity="fill_horizontal"
-                android:text="0 min" />
+                android:text="0 min"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
 
             <TextView
                 android:id="@+id/tableD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
                 android:gravity="center"
-                app:layout_gravity="fill_horizontal"
-                android:text="@string/tableD" />
+                android:text="@string/tableD"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
 
             <TextView
                 android:id="@+id/tableDWaitingParty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
                 android:gravity="center"
-                app:layout_gravity="fill_horizontal"
-                android:text="0" />
+                android:text="0"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
 
             <TextView
                 android:id="@+id/tableDEstimateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
                 android:gravity="center"
-                app:layout_gravity="fill_horizontal"
-                android:text="0 min" />
+                android:text="0 min"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
 
         </android.support.v7.widget.GridLayout>
     </android.support.v7.widget.CardView>
@@ -246,24 +247,24 @@
     <android.support.v7.widget.CardView
         android:id="@+id/detailedInfoCardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
             app:columnCount="2"
             app:rowCount="4"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
             app:useDefaultMargins="true">
 
             <ImageView
                 android:id="@+id/addressIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="6dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
                 app:srcCompat="@drawable/ic_location_on_black_24px" />
 
             <TextView
@@ -278,10 +279,10 @@
                 android:id="@+id/telephoneIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
                 android:layout_column="0"
-                android:layout_marginStart="10dp"
                 android:layout_marginBottom="6dp"
+                android:layout_marginStart="10dp"
+                android:layout_row="1"
                 app:srcCompat="@drawable/ic_phone_black_24px" />
 
             <TextView
@@ -295,10 +296,10 @@
                 android:id="@+id/operationTimeIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="2"
                 android:layout_column="0"
-                android:layout_marginStart="10dp"
                 android:layout_marginBottom="6dp"
+                android:layout_marginStart="10dp"
+                android:layout_row="2"
                 app:srcCompat="@drawable/ic_access_time_black_24px" />
 
             <TextView
@@ -309,20 +310,20 @@
                 android:text="Open Hours" />
 
             <!--<ImageView-->
-                <!--android:id="@+id/menuIcon"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_row="3"-->
-                <!--android:layout_column="0"-->
-                <!--android:layout_marginStart="10dp"-->
-                <!--app:srcCompat="@drawable/ic_restaurant_menu_black_24px" />-->
+            <!--android:id="@+id/menuIcon"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_row="3"-->
+            <!--android:layout_column="0"-->
+            <!--android:layout_marginStart="10dp"-->
+            <!--app:srcCompat="@drawable/ic_restaurant_menu_black_24px" />-->
 
             <!--<TextView-->
-                <!--android:id="@+id/restaurantMenu"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center_vertical"-->
-                <!--android:text="@string/menu" />-->
+            <!--android:id="@+id/restaurantMenu"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:text="@string/menu" />-->
         </GridLayout>
     </android.support.v7.widget.CardView>
 

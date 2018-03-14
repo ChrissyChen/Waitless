@@ -6,55 +6,7 @@
     <item name="masked" type="id"/>
     <string name="error">Please enter at least 4 characters</string>
 
-
-    <!--for AndroidManifest.xml-->
-    <string name="restaurant_details">Restaurant Details</string>
-
-
-
-    <string name="home">Home</string>
-    <string name="SanFrancisco">San Francisco</string>
-    <string name="hint">Search a Restaurant</string>
-    <string name="Chinese">Chinese</string>
-    <string name="Italian">Italian</string>
-    <string name="Japanese">Japanese</string>
-    <string name="American">American</string>
-    <string name="Thai">Thai</string>
-    <string name="restaurant">Restaurant</string>
-    <string name="viewAll">View All</string>
-    <string name="clickedSearchBar">Clicked Search Bar</string>
-
-
-    <string name="nearby">Nearby</string>
-
-    <string name="profile">Profile</string>
-
-    <string name="search">Search</string>
-    <string name="hint_search">Type a restaurant or a cuisine</string>
-    <string name="not_found">No restaurant found!</string>
-
-    <string name="getNumber">Get a Number</string>
-    <string name="open">Currently Open</string>
-    <string name="close">Currently Close</string>
-    <string name="tableSize">Table Size</string>
-    <string name="waitingParty">Waiting Party</string>
-    <string name="estimateTime">Estimate Time</string>
-    <string name="tableA">1 - 2</string>
-    <string name="tableB">3 - 4</string>
-    <string name="tableC">5 - 6</string>
-    <string name="tableD">7+</string>
-    <string name="menu">Menu</string>
-
-
-    <string name="partyNumber">Party Number</string>
-    <string name="confirm">Confirm</string>
-    <string name="congrats">Congrats! You got a number!</string>
-    <string name="number">Number: _____</string>
-    <string name="customerName">Customer Name: _____</string>
-    <string name="createdTime">Created Time: _____</string>
-    <string name="closeButton">Close</string>
-
-        <!-- Sign Up Page -->
+    <!-- Sign Up Page -->
     <string name="firstName">First Name</string>
     <string name="lastName">Last Name</string>
     <string name="telephone">Telephone</string>
@@ -87,23 +39,55 @@
     <string name="send_reset_instruction">We have sent you instructions to reset your password!</string>
     <string name="fail_reset">Failed to send reset email!</string>
 
+    <!-- Home Fragment -->
+    <string name="home">Home</string>
+    <string name="SanFrancisco">San Francisco</string>
+    <string name="hint">Search a Restaurant</string>
+    <string name="Chinese">Chinese</string>
+    <string name="Italian">Italian</string>
+    <string name="Japanese">Japanese</string>
+    <string name="American">American</string>
+    <string name="Thai">Thai</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="viewAll">View All</string>
+    <string name="clickedSearchBar">Clicked Search Bar</string>
 
-    <!-- Main Page -->
-    <string name="general_setting">General Settings</string>
-    <string name="tables">Tables</string>
-    <string name="open_hours">Open Hours</string>
-    <string name="guests">Guests</string>
+    <!-- Search Page -->
+    <string name="search">Search</string>
+    <string name="hint_search">Type a restaurant or a cuisine</string>
+    <string name="not_found">No restaurant found!</string>
 
+    <!-- Restaurant Details Page -->
+    <string name="restaurant_details">Restaurant Details</string>
+    <string name="getNumber">Get a Number</string>
+    <string name="open">Currently Open</string>
+    <string name="close">Currently Close</string>
+    <string name="tableSize">Table Size</string>
+    <string name="waitingParty">Waiting Party</string>
+    <string name="estimateTime">Estimate Time</string>
+    <string name="tableA">1 – 2</string>
+    <string name="tableB">3 – 4</string>
+    <string name="tableC">5 – 6</string>
+    <string name="tableD">7 – 10</string>
+    <string name="menu">Menu</string>
 
-    <!-- General Fragment -->
-    <string name="restaurant_name">Restaurant Name</string>
-    <string name="address">Address</string>
-    <string name="phone">Phone</string>
-    <string name="cuisine">Cuisine</string>
-    <string name="logo">Logo</string>
-    <string name="btn_save">Save</string>
+    <!-- Get a Number Page -->
+    <string name="partyNumber">Party Number</string>
+    <string name="empty_party">Party number is empty. Enter party number!</string>
+    <string name="confirm">Confirm</string>
+    <string name="large_party">Party number is larger than 10. Please contact restaurant directly! </string>
+
+    <string name="congrats">Congrats! You got a number!</string>
+    <string name="number">Number</string>
+    <string name="customer">Customer</string>
+    <string name="createdTime">Created Time</string>
+    <string name="closeButton">Close</string>
+
+    <!-- Nearby Fragment -->
+    <string name="nearby">Nearby</string>
 
     <!-- Profile Fragment -->
+    <string name="profile">Profile</string>
     <string name="waitlist_history">Waitlist History</string>
     <string name="favorite">Favorite Restaurants</string>
     <string name="sign_out">Sign Out</string>

@@ -3,53 +3,112 @@
     android:id="@+id/getNumberLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/activity_horizontal_margin"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/firstName"
-        android:layout_width="250dp"
+    <TextView
+        android:id="@+id/restaurantName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:hint="@string/firstName"
-        android:inputType="textPersonName" />
+        android:textColor="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:text="@string/restaurant"
+        android:layout_margin="6dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
 
-    <EditText
-        android:id="@+id/lastName"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:ems="10"
-        android:hint="@string/lastName"
-        android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/telephone"
-        android:layout_width="250dp"
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:ems="10"
-        android:hint="@string/telephone"
-        android:maxLength="10"
-        android:inputType="phone" />
+        android:textColorHint="@color/colorPrimary">
 
-    <EditText
-        android:id="@+id/partyNumber"
-        android:layout_width="250dp"
+        <EditText
+            android:id="@+id/firstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/hintGrey"
+            android:hint="@string/firstName"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:textColor="@color/darkGrey" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:ems="10"
-        android:hint="@string/partyNumber"
-        android:inputType="number" />
+        android:textColorHint="@color/colorPrimary">
+
+        <EditText
+            android:id="@+id/lastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/hintGrey"
+            android:hint="@string/lastName"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:textColor="@color/darkGrey" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/colorPrimary">
+
+        <EditText
+            android:id="@+id/telephone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/hintGrey"
+            android:hint="@string/telephone"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:textColor="@color/darkGrey" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/colorPrimary">
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/hintGrey"
+            android:hint="@string/hint_email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:textColor="@color/darkGrey" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/colorPrimary">
+
+        <EditText
+            android:id="@+id/partyNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/hintGrey"
+            android:hint="@string/partyNumber"
+            android:inputType="number"
+            android:maxLines="1"
+            android:textColor="@color/darkGrey" />
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/confirmButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:paddingEnd="50dp"
-        android:paddingStart="50dp"
-        android:text="@string/confirm" />
+        android:layout_marginTop="30dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/confirm"
+        android:textColor="@color/lightGrey"
+        android:textStyle="bold" />
+
 </LinearLayout>

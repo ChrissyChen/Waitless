@@ -39,7 +39,6 @@ public class SignupActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

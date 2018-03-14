@@ -21,10 +21,10 @@ import project.csc895.sfsu.waitless.model.Restaurant;
 public class RestaurantActivity extends AppCompatActivity {
 
     private static final String TAG = "Restaurant Activity";
-    public final static String EXTRA_RESTAURANT_NAME = "Pass Restaurant Name";
     private static final String RESTAURANT_CHILD = "restaurants";
+    public static final String EXTRA_RESTAURANT_NAME = "Pass Restaurant Name";
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-    private String restaurantID;
+    private String restaurantID, restaurantName;
     private ImageView mRestaurantImage;
     private TextView mRestaurantName, mCuisines, mOperateStatus, mRestaurantAddress, mRestaurantPhone;
     private Button mGetNumberButton;
@@ -50,18 +50,19 @@ public class RestaurantActivity extends AppCompatActivity {
         mRestaurantAddress = (TextView) findViewById(R.id.restaurantAddress);
         mRestaurantPhone = (TextView) findViewById(R.id.restaurantTelephone);
 
+        loadRestaurantValue();
+
         mGetNumberButton = (Button) findViewById(R.id.getNumberButton);
         mGetNumberButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RestaurantActivity.this, GetNumberActivity.class);
                 intent.putExtra(SearchActivity.EXTRA_RESTAURANT_ID, restaurantID);
-                //intent.putExtra(EXTRA_RESTAURANT_NAME, restaurant.getName());
+                intent.putExtra(EXTRA_RESTAURANT_NAME, restaurantName);
                 v.getContext().startActivity(intent);
             }
         });
 
-        loadRestaurantValue();
     }
 
     private void loadRestaurantValue() {
@@ -72,16 +73,13 @@ public class RestaurantActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Restaurant restaurant = dataSnapshot.getValue(Restaurant.class);
                 if (restaurant != null) {
-                    String name = restaurant.getName();
+                    restaurantName = restaurant.getName();
                     String address = restaurant.getAddress();
                     String phone = restaurant.getTelephone();
                     String cuisine = restaurant.getCuisine();
                     // TODO get image
-                    Log.d("name: ", name);
-                    Log.d("address: ", address);
-                    Log.d("phone: ", phone);
-                    Log.d("cuisine: ", cuisine);
-                    mRestaurantName.setText(name);
+
+                    mRestaurantName.setText(restaurantName);
                     mCuisines.setText(cuisine);
                     mRestaurantAddress.setText(address);
                     mRestaurantPhone.setText(phone);
