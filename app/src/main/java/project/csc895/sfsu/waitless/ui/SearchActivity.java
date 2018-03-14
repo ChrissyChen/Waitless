@@ -8,6 +8,9 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -249,6 +252,25 @@ public class SearchActivity extends AppCompatActivity {
         super.onDestroy();
         if (mAdapter != null) {
             mAdapter.cleanup();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.top_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.homeAction:
+                startActivity(new Intent(SearchActivity.this, MainActivity.class));
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
