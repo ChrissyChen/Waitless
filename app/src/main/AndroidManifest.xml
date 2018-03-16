@@ -49,6 +49,11 @@
             android:theme="@style/AppTheme"
             android:label="@string/getNumber" />
 
+        <activity
+            android:name=".ui.NumberDetailedActivity"
+            android:theme="@style/AppTheme"
+            android:label="@string/number_details" />
+
     </application>
 
 </manifest>

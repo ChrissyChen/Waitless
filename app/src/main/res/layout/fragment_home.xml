@@ -186,8 +186,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="5dp"
                 android:paddingBottom="5dp"
+                android:paddingTop="5dp"
                 android:text="@string/hot_restaurant" />
 
             <!-- A CardView that contains a TextView -->
@@ -208,36 +208,36 @@
                     <ImageView
                         android:layout_width="155dp"
                         android:layout_height="82dp"
-                        android:layout_marginTop="6dp"
-                        android:layout_marginLeft="8dp"
                         android:layout_column="0"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="6dp"
                         android:layout_row="0"
                         app:srcCompat="@drawable/i_hop" />
 
                     <ImageView
                         android:layout_width="170dp"
                         android:layout_height="80dp"
-                        android:layout_marginTop="8dp"
                         android:layout_column="1"
+                        android:layout_marginTop="8dp"
                         android:layout_row="0"
                         app:srcCompat="@drawable/restaurant_park" />
 
                     <ImageView
                         android:layout_width="150dp"
                         android:layout_height="74dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="5dp"
                         android:layout_column="0"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
                         android:layout_row="1"
                         app:srcCompat="@drawable/din_tai_fung" />
 
                     <ImageView
                         android:layout_width="150dp"
                         android:layout_height="75dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginLeft="10dp"
                         android:layout_column="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
                         android:layout_row="1"
                         app:srcCompat="@drawable/bbq" />
 

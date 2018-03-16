@@ -1,6 +1,8 @@
 package project.csc895.sfsu.waitless.model;
 
-public class Number {
+import java.io.Serializable;
+
+public class Number implements Serializable {
 
     private String numberID;
     private String restaurantID;

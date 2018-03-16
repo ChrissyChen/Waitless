@@ -97,6 +97,14 @@
     <string name="avatar">Avatar</string>
     <string name="btn_save">Save</string>
 
+    <!-- Waitlist History Fragment -->
+    <string name="no_record">No history record</string>
+    <string name="cancel">Cancel</string>
+    <string name="complete">Complete</string>
+
+    <!-- Number Detailed Activity -->
+    <string name="number_details">Number Details</string>
+    <string name="status">Status</string>
 
 
 </resources>

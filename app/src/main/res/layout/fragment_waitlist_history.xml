@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/waitlistHistoryLinearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/waitlistHistory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/noRecord"
+        android:layout_width="match_parent"
+        android:layout_height="164dp"
+        android:layout_margin="3dp"
+        android:text="@string/no_record"
+        android:textSize="18sp"
+        android:visibility="invisible" />
+</LinearLayout>
