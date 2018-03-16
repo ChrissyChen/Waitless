@@ -49,6 +49,10 @@ public class GetNumberActivity extends AppCompatActivity {
     private static final String WAIT_NUM_TABLE_B_CHILD = "waitNumTableB";
     private static final String WAIT_NUM_TABLE_C_CHILD = "waitNumTableC";
     private static final String WAIT_NUM_TABLE_D_CHILD = "waitNumTableD";
+    private static final String COUNTER_TABLE_A_CHILD = "counterTableA";
+    private static final String COUNTER_TABLE_B_CHILD = "counterTableB";
+    private static final String COUNTER_TABLE_C_CHILD = "counterTableC";
+    private static final String COUNTER_TABLE_D_CHILD = "counterTableD";
     private static final String NUMBER_CHILD = "numbers";
     private static final String RESTAURANT_ID_CHILD = "restaurantID";
     private static final int TABLE_A_SIZE = 2;
@@ -64,6 +68,7 @@ public class GetNumberActivity extends AppCompatActivity {
     private int partyNumber;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private int waitNumTableA, waitNumTableB, waitNumTableC, waitNumTableD;
+    private int counterTableA, counterTableB, counterTableC, counterTableD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,6 +176,10 @@ public class GetNumberActivity extends AppCompatActivity {
                             Log.d("num b", String.valueOf(waitNumTableB));
                             Log.d("num c", String.valueOf(waitNumTableC));
                             Log.d("num d", String.valueOf(waitNumTableD));
+                            counterTableA = waitlist.getCounterTableA();
+                            counterTableB = waitlist.getCounterTableB();
+                            counterTableC = waitlist.getCounterTableC();
+                            counterTableD = waitlist.getCounterTableD();
                         }
                     }
                 }
@@ -237,23 +246,22 @@ public class GetNumberActivity extends AppCompatActivity {
         DatabaseReference numberRef = mDatabase.child(NUMBER_CHILD);
         String key = numberRef.push().getKey();  // newly generated numberID
         username = firstName + " " + lastName;
-        int currentNum;
         if (partyNumber <= TABLE_A_SIZE) {
             waitNumTableA += 1;
-            currentNum = waitNumTableA;
-            numberName = "A" + currentNum;
+            counterTableA += 1;
+            numberName = "A" + counterTableA;
         } else if (partyNumber <= TABLE_B_SIZE) {
             waitNumTableB += 1;
-            currentNum = waitNumTableB;
-            numberName = "B" + currentNum;
+            counterTableB += 1;
+            numberName = "B" + counterTableB;
         } else if (partyNumber <= TABLE_C_SIZE) {
             waitNumTableC += 1;
-            currentNum = waitNumTableC;
-            numberName = "C" + currentNum;
+            counterTableC += 1;
+            numberName = "C" + counterTableC;
         } else if (partyNumber <= TABLE_D_SIZE) {
             waitNumTableD += 1;
-            currentNum = waitNumTableD;
-            numberName = "D" + currentNum;
+            counterTableD += 1;
+            numberName = "D" + counterTableD;
         }
         SimpleDateFormat format = new SimpleDateFormat("EEEE, MMMM d, yyyy 'at' h:mm a");
         currentTime = format.format(Calendar.getInstance().getTime());
@@ -269,6 +277,11 @@ public class GetNumberActivity extends AppCompatActivity {
         ref.child(WAIT_NUM_TABLE_B_CHILD).setValue(waitNumTableB);
         ref.child(WAIT_NUM_TABLE_C_CHILD).setValue(waitNumTableC);
         ref.child(WAIT_NUM_TABLE_D_CHILD).setValue(waitNumTableD);
+
+        ref.child(COUNTER_TABLE_A_CHILD).setValue(counterTableA);
+        ref.child(COUNTER_TABLE_B_CHILD).setValue(counterTableB);
+        ref.child(COUNTER_TABLE_C_CHILD).setValue(counterTableC);
+        ref.child(COUNTER_TABLE_D_CHILD).setValue(counterTableD);
     }
 
     public void showConfirmPopupWindow() {

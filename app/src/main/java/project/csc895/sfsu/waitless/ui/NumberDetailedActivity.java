@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,14 +13,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,23 +25,31 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import project.csc895.sfsu.waitless.R;
 import project.csc895.sfsu.waitless.model.Number;
-import project.csc895.sfsu.waitless.model.User;
 import project.csc895.sfsu.waitless.model.Waitlist;
 
 public class NumberDetailedActivity extends AppCompatActivity {
 
-    private static final String TAG = "Number detailed Activity";
-    private static final String USER_CHILD = "users";
     private static final String NUMBER_CHILD = "numbers";
+    private static final String WAITLIST_CHILD = "waitlists";
     private static final String RESTAURANT_ID_CHILD = "restaurantID";
+    private static final String STATUS_CHILD = "status";
+    private static final String STATUS_WAITING = "Waiting";
+    private static final String STATUS_DINING = "Dining";
+    private static final String STATUS_CANCELLED = "Cancelled";
+    private static final String STATUS_COMPLETED = "Completed";
+    private static final String WAIT_NUM_TABLE_A_CHILD = "waitNumTableA";
+    private static final String WAIT_NUM_TABLE_B_CHILD = "waitNumTableB";
+    private static final String WAIT_NUM_TABLE_C_CHILD = "waitNumTableC";
+    private static final String WAIT_NUM_TABLE_D_CHILD = "waitNumTableD";
     private LinearLayout mLinearLayout;
-    private PopupWindow mPopupWindowComplete, mPopupWindowCancel;
+    private TextView restaurantName, numberNameField, statusField, customerName, customerPhone, partyNumber, createdTime;
+    private Button completeButton, cancelButton;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private String numberID, restaurantID, waitlistID;
+    private String numberName;
+    private int waitNumTableA, waitNumTableB, waitNumTableC, waitNumTableD;
 
 
     @Override
@@ -56,12 +59,28 @@ public class NumberDetailedActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
 
         Intent intent = getIntent();
-        Number number = (Number) intent.getSerializableExtra(WaitlistHistoryFragment.EXTRA_NUMBER);  // get number obj
+        //Number number = (Number) intent.getSerializableExtra(WaitlistHistoryFragment.EXTRA_NUMBER);  // get number obj
+        numberID = intent.getStringExtra(WaitlistHistoryFragment.EXTRA_NUMBER_ID);
+        restaurantID = intent.getStringExtra(WaitlistHistoryFragment.EXTRA_RESTAURANT_ID);
 
-        initViews(number);
+        initViews();
+        loadNumberInfo();
+        getWaitlistInfo();
 
-        Button completeButton = (Button) findViewById(R.id.completeButton);
-        Button cancelButton = (Button) findViewById(R.id.cancelButton);
+    }
+
+    private void initViews() {
+        mLinearLayout = (LinearLayout) findViewById(R.id.numberDetailLinearLayout);
+        restaurantName = (TextView) findViewById(R.id.restaurant);
+        numberNameField = (TextView) findViewById(R.id.number);
+        statusField = (TextView) findViewById(R.id.status);
+        customerName = (TextView) findViewById(R.id.customerName);
+        customerPhone = (TextView) findViewById(R.id.customerTelephone);
+        partyNumber = (TextView) findViewById(R.id.customerPartyNumber);
+        createdTime = (TextView) findViewById(R.id.numberCreatedTime);
+
+        completeButton = (Button) findViewById(R.id.completeButton);
+        cancelButton = (Button) findViewById(R.id.cancelButton);
         completeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,63 +91,135 @@ public class NumberDetailedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO popup window and trigger cancel the number
+                showCancelPopupWindow();
             }
         });
-
     }
 
-    private void initViews(Number number) {
-        mLinearLayout = (LinearLayout) findViewById(R.id.numberDetailLinearLayout);
-        TextView restaurantName = (TextView) findViewById(R.id.restaurant);
-        TextView numberName = (TextView) findViewById(R.id.number);
-        TextView status = (TextView) findViewById(R.id.status);
-        TextView customerName = (TextView) findViewById(R.id.customerName);
-        TextView customerPhone = (TextView) findViewById(R.id.customerTelephone);
-        TextView partyNumber = (TextView) findViewById(R.id.customerPartyNumber);
-        TextView createdTime = (TextView) findViewById(R.id.numberCreatedTime);
+    private void loadNumberInfo() {
+        DatabaseReference ref = mDatabase.child(NUMBER_CHILD).child(numberID);
 
-        restaurantName.setText(number.getRestaurantName());
-        numberName.setText(number.getNumberName());
-        status.setText(number.getStatus());
-        customerName.setText(number.getUsername());
-        customerPhone.setText(number.getPhone());
-        partyNumber.setText(String.valueOf(number.getPartyNumber()));
-        createdTime.setText(number.getTimeCreated());
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Number number = dataSnapshot.getValue(Number.class);
+                if (number != null) {
+                    String status = number.getStatus();
+                    numberName = number.getNumberName();
+
+                    restaurantName.setText(number.getRestaurantName());
+                    numberNameField.setText(numberName);
+                    statusField.setText(status);
+                    customerName.setText(number.getUsername());
+                    customerPhone.setText(number.getPhone());
+                    partyNumber.setText(String.valueOf(number.getPartyNumber()));
+                    createdTime.setText(number.getTimeCreated());
+
+                    if (status.equals(STATUS_WAITING)) {         //show cancel button. hide complete button
+                        completeButton.setVisibility(View.GONE);
+                        cancelButton.setVisibility(View.VISIBLE);
+                    } else if (status.equals(STATUS_DINING)) {   // show complete button. hide cancel button
+                        completeButton.setVisibility(View.VISIBLE);
+                        cancelButton.setVisibility(View.GONE);
+                    } else if (status.equals(STATUS_CANCELLED) || status.equals(STATUS_COMPLETED)) { // hide both buttons
+                        completeButton.setVisibility(View.GONE);
+                        cancelButton.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
+    private void getWaitlistInfo() {
+        Query query = mDatabase.child(WAITLIST_CHILD)
+                .orderByChild(RESTAURANT_ID_CHILD)
+                .equalTo(restaurantID);
 
-//    public void showConfirmPopupWindow() {
-//        LayoutInflater inflater = (LayoutInflater) NumberDetailedActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        if (inflater != null) {
-//            View customView = inflater.inflate(R.layout.popup_window_number, null);
-//            mPopupWindow = new PopupWindow(customView, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-//            mPopupWindow.showAtLocation(mLinearLayout, Gravity.CENTER, 0, 0);
-//
-//            TextView number = (TextView) customView.findViewById(R.id.number);
-//            TextView restaurant = (TextView) customView.findViewById(R.id.restaurant);
-//            TextView customerName = (TextView) customView.findViewById(R.id.customerName);
-//            TextView telephone = (TextView) customView.findViewById(R.id.customerTelephone);
-//            TextView partyNumberTextView = (TextView) customView.findViewById(R.id.customerPartyNumber);
-//            TextView createdTime = (TextView) customView.findViewById(R.id.numberCreatedTime);
-//            number.setText(numberName);
-//            restaurant.setText(restaurantName);
-//            customerName.setText(username);
-//            telephone.setText(phone);
-//            partyNumberTextView.setText(String.valueOf(partyNumber));
-//            createdTime.setText(currentTime);
-//
-//            Button closeButton = (Button) customView.findViewById(R.id.closeButton);
-//            closeButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    mPopupWindow.dismiss();
-//
-//                    // lead to restaurant activity again. but can't startActivity. maybe need to go back.
-//                    onBackPressed();
-//                }
-//            });
-//        }
-//    }
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.hasChildren()) {
+                    Log.d("Error", "NO WAITLIST SHOWS");
+                } else {
+                    for (DataSnapshot objSnapshot: dataSnapshot.getChildren()) {
+                        Waitlist waitlist = objSnapshot.getValue(Waitlist.class);
+                        if (waitlist != null) {
+                            waitlistID = waitlist.getWaitlistID();
+                            Log.d("waitlistID inside", waitlistID);
+                            waitNumTableA = waitlist.getWaitNumTableA();
+                            waitNumTableB = waitlist.getWaitNumTableB();
+                            waitNumTableC = waitlist.getWaitNumTableC();
+                            waitNumTableD = waitlist.getWaitNumTableD();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void showCancelPopupWindow() {
+        LayoutInflater inflater = (LayoutInflater) NumberDetailedActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (inflater != null) {
+            View customView = inflater.inflate(R.layout.popup_window_cancel, null);
+            final PopupWindow popupWindow = new PopupWindow(customView, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+            popupWindow.showAtLocation(mLinearLayout, Gravity.CENTER, 0, 0);
+
+            Button yesButton = (Button) customView.findViewById(R.id.yesButton);
+            Button noButton = (Button) customView.findViewById(R.id.noButton);
+            yesButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cancelNumber();
+                    popupWindow.dismiss();
+
+                }
+            });
+            noButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    popupWindow.dismiss();
+                }
+            });
+        }
+    }
+
+    private void cancelNumber() {
+        //cancel number: set number status to cancelled. update db. update textview ui (auto)
+        //waitNumTable -1
+        //toast
+        DatabaseReference numberRef = mDatabase.child(NUMBER_CHILD).child(numberID);
+        numberRef.child(STATUS_CHILD).setValue(STATUS_CANCELLED);
+
+        updateWaitlistInfo();
+        Toast.makeText(NumberDetailedActivity.this, getString(R.string.cancel_succeed), Toast.LENGTH_SHORT).show();
+    }
+
+    private void updateWaitlistInfo() {
+        DatabaseReference ref = mDatabase.child(WAITLIST_CHILD).child(waitlistID);
+        if (numberName.charAt(0) == 'A') {
+            waitNumTableA -= 1;
+            ref.child(WAIT_NUM_TABLE_A_CHILD).setValue(waitNumTableA);
+        } else if (numberName.charAt(0) == 'B') {
+            waitNumTableB -= 1;
+            ref.child(WAIT_NUM_TABLE_B_CHILD).setValue(waitNumTableB);
+        } else if (numberName.charAt(0) == 'C') {
+            waitNumTableC -= 1;
+            ref.child(WAIT_NUM_TABLE_C_CHILD).setValue(waitNumTableC);
+        } else if (numberName.charAt(0) == 'D') {
+            waitNumTableD -= 1;
+            ref.child(WAIT_NUM_TABLE_D_CHILD).setValue(waitNumTableD);
+        }
+    }
 
     @Override
     public void onBackPressed() {

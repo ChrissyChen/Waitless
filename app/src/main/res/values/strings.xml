@@ -105,6 +105,12 @@
     <!-- Number Detailed Activity -->
     <string name="number_details">Number Details</string>
     <string name="status">Status</string>
+    <string name="cancel_message">Are you sure that you want to cancel the waitlist number?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel_succeed">The number has been cancelled!</string>
+
+
 
 
 </resources>
