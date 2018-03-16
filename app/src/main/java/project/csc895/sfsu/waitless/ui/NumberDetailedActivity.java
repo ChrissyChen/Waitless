@@ -90,7 +90,7 @@ public class NumberDetailedActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO popup window and trigger cancel the number
+                // popup window and trigger cancel the number
                 showCancelPopupWindow();
             }
         });

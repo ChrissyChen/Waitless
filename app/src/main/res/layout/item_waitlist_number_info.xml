@@ -68,6 +68,16 @@
                     android:paddingTop="12dp"
                     android:paddingStart="10dp"
                     android:text="@string/customer" />
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="10dp"
+                    android:text="@string/status"
+                    android:textStyle="italic"/>
             </LinearLayout>
 
             <LinearLayout

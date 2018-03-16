@@ -78,6 +78,7 @@ public class WaitlistHistoryFragment extends Fragment {
                 viewHolder.setRestaurantName(number.getRestaurantName());
                 viewHolder.setNumberName(number.getNumberName());
                 viewHolder.setCustomerName(number.getUsername());
+                viewHolder.setStatus(number.getStatus());
                 viewHolder.setCreatedTime(number.getTimeCreated());
 
                 viewHolder.onClick(number);
@@ -110,7 +111,7 @@ public class WaitlistHistoryFragment extends Fragment {
 
     public static class NumberViewHolder extends RecyclerView.ViewHolder {
         private CardView mCardView;
-        private TextView mRestaurantName, mNumberName, mCustomerName, mCreatedTime;
+        private TextView mRestaurantName, mNumberName, mCustomerName, mStatus, mCreatedTime;
 
         public NumberViewHolder(View itemView) {
             super(itemView);
@@ -118,6 +119,7 @@ public class WaitlistHistoryFragment extends Fragment {
             mRestaurantName = (TextView) itemView.findViewById(R.id.restaurantName);
             mNumberName = (TextView) itemView.findViewById(R.id.numberName);
             mCustomerName = (TextView) itemView.findViewById(R.id.customerName);
+            mStatus = (TextView) itemView.findViewById(R.id.status);
             mCreatedTime = (TextView) itemView.findViewById(R.id.numberCreatedTime);
         }
 
@@ -131,6 +133,10 @@ public class WaitlistHistoryFragment extends Fragment {
 
         public void setCustomerName(String customerName) {
             mCustomerName.setText(customerName);
+        }
+
+        public void setStatus(String status) {
+            mStatus.setText(status);
         }
 
         public void setCreatedTime(String createdTime) {
