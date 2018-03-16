@@ -76,7 +76,7 @@ public class WaitlistHistoryFragment extends Fragment {
                 query) {
             @Override
             protected void populateViewHolder(NumberViewHolder viewHolder, Number number, int position) {
-                //viewHolder.setRestaurantName();
+                viewHolder.setRestaurantName(number.getRestaurantName());
                 viewHolder.setNumberName(number.getNumberName());
                 viewHolder.setCustomerName(number.getUsername());
                 viewHolder.setCreatedTime(number.getTimeCreated());

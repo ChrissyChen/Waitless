@@ -87,9 +87,9 @@ public class NumberDetailedActivity extends AppCompatActivity {
         TextView partyNumber = (TextView) findViewById(R.id.customerPartyNumber);
         TextView createdTime = (TextView) findViewById(R.id.numberCreatedTime);
 
-        //restaurantName.setText(number.get); todo
+        restaurantName.setText(number.getRestaurantName());
         numberName.setText(number.getNumberName());
-        //status.setText(number.); todo
+        status.setText(number.getStatus());
         customerName.setText(number.getUsername());
         customerPhone.setText(number.getPhone());
         partyNumber.setText(String.valueOf(number.getPartyNumber()));

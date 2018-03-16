@@ -6,6 +6,7 @@ public class Number implements Serializable {
 
     private String numberID;
     private String restaurantID;
+    private String restaurantName;
     private String userID;
     private String username;
     private String phone;
@@ -13,14 +14,15 @@ public class Number implements Serializable {
     private String timeCreated;
     private String numberName; // based on tableSize, A1, B2...
     private int partyNumber; // tableSize TODO: 9/14/17
-    private boolean hasShownUp;  //// TODO: 9/14/17
+    private String status;   // waiting, dining, canceled, completed
 
     public Number() {
     }
 
-    public Number(String numberID, String restaurantID, String userID, String username, String phone, String email, String timeCreated, String numberName, int partyNumber) {
+    public Number(String numberID, String restaurantID, String restaurantName, String userID, String username, String phone, String email, String timeCreated, String numberName, int partyNumber, String status) {
         this.numberID = numberID;
         this.restaurantID = restaurantID;
+        this.restaurantName = restaurantName;
         this.userID = userID;
         this.username = username;
         this.phone = phone;
@@ -28,6 +30,7 @@ public class Number implements Serializable {
         this.timeCreated = timeCreated;
         this.numberName = numberName;
         this.partyNumber = partyNumber;
+        this.status = status;
     }
 
     public String getNumberID() {
@@ -44,6 +47,14 @@ public class Number implements Serializable {
 
     public void setRestaurantID(String restaurantID) {
         this.restaurantID = restaurantID;
+    }
+
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
     }
 
     public String getUserID() {
@@ -102,12 +113,12 @@ public class Number implements Serializable {
         this.partyNumber = partyNumber;
     }
 
-    public boolean isHasShownUp() {
-        return hasShownUp;
+    public String getStatus() {
+        return status;
     }
 
-    public void setHasShownUp(boolean hasShownUp) {
-        this.hasShownUp = hasShownUp;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
 
