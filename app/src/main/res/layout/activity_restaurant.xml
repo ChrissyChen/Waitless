@@ -19,16 +19,15 @@
 
             <ImageView
                 android:id="@+id/restaurantImageView"
-                android:layout_width="wrap_content"
+                android:layout_width="142dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
                 android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 app:srcCompat="@drawable/coming_soon_pic" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
                 android:orientation="vertical"
                 android:padding="9dp">
 

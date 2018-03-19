@@ -1,7 +1,9 @@
 package project.csc895.sfsu.waitless.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -12,12 +14,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import project.csc895.sfsu.waitless.R;
 import project.csc895.sfsu.waitless.model.Restaurant;
@@ -37,6 +44,7 @@ public class RestaurantActivity extends AppCompatActivity {
                     mTableAWaitingParty, mTableBWaitingParty, mTableCWaitingParty, mTableDWaitingParty,
                     mTableAEstimateTime, mTableBEstimateTime, mTableCEstimateTime, mTableDEstimateTime;
     private Button mGetNumberButton;
+    private static FirebaseStorage sStorage = FirebaseStorage.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,12 +107,30 @@ public class RestaurantActivity extends AppCompatActivity {
                     String address = restaurant.getAddress();
                     String phone = restaurant.getTelephone();
                     String cuisine = restaurant.getCuisine();
-                    // TODO get image
+                    String imageUrl = restaurant.getImageUrl();
 
                     mRestaurantName.setText(restaurantName);
                     mCuisines.setText(cuisine);
                     mRestaurantAddress.setText(address);
                     mRestaurantPhone.setText(phone);
+
+                    // get image
+                    if (imageUrl != null) {  // if has value in imageUrl, then load the uri into logo ImageView
+                        final StorageReference gsReference = sStorage.getReferenceFromUrl(imageUrl);
+                        gsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Glide.with(RestaurantActivity.this)
+                                        .load(uri)
+                                        .into(mRestaurantImage);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                Log.e(TAG, "Could not load image for message", exception);
+                            }
+                        });
+                    } // if imageUrl is null, display the default image
                 }
             }
 
