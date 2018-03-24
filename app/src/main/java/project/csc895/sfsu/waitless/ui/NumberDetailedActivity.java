@@ -1,8 +1,10 @@
 package project.csc895.sfsu.waitless.ui;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -36,12 +38,15 @@ public class NumberDetailedActivity extends AppCompatActivity {
     private static final String NUMBER_CHILD = "numbers";
     private static final String WAITLIST_CHILD = "waitlists";
     private static final String TABLE_CHILD = "tables";
+    private static final String TABLE_ID_CHILD = "tableID";
+    private static final String NUMBER_ID_CHILD = "numberID";
     private static final String RESTAURANT_ID_CHILD = "restaurantID";
     private static final String STATUS_CHILD = "status";
-    private static final String STATUS_WAITING = "Waiting";
-    private static final String STATUS_DINING = "Dining";
-    private static final String STATUS_CANCELLED = "Cancelled";
-    private static final String STATUS_COMPLETED = "Completed";
+    private static final String NUMBER_STATUS_WAITING = "Waiting";
+    private static final String NUMBER_STATUS_DINING = "Dining";
+    private static final String NUMBER_STATUS_CANCELLED = "Cancelled";
+    private static final String NUMBER_STATUS_COMPLETED = "Completed";
+    private static final String TABLE_STATUS_DIRTY = "Dirty";
     private static final String WAIT_NUM_TABLE_A_CHILD = "waitNumTableA";
     private static final String WAIT_NUM_TABLE_B_CHILD = "waitNumTableB";
     private static final String WAIT_NUM_TABLE_C_CHILD = "waitNumTableC";
@@ -73,15 +78,6 @@ public class NumberDetailedActivity extends AppCompatActivity {
         initViews();
         loadNumberInfo();
         getWaitlistInfo();
-
-        if (tableID != null) {
-            //show table views
-            tableIcon.setVisibility(View.VISIBLE);
-            tableName.setVisibility(View.VISIBLE);
-            //load table name
-            loadTableName();
-        }
-
     }
 
     private void initViews() {
@@ -101,7 +97,7 @@ public class NumberDetailedActivity extends AppCompatActivity {
         completeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO popup window and trigger table to be available
+                showConfirmCompleteAlertDialog();
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -133,15 +129,24 @@ public class NumberDetailedActivity extends AppCompatActivity {
                     partyNumber.setText(String.valueOf(number.getPartyNumber()));
                     createdTime.setText(number.getTimeCreated());
 
-                    if (status.equals(STATUS_WAITING)) {         //show cancel button. hide complete button
+                    if (status.equals(NUMBER_STATUS_WAITING)) {         //show cancel button. hide complete button
                         completeButton.setVisibility(View.GONE);
                         cancelButton.setVisibility(View.VISIBLE);
-                    } else if (status.equals(STATUS_DINING)) {   // show complete button. hide cancel button
+                    } else if (status.equals(NUMBER_STATUS_DINING)) {   // show complete button. hide cancel button
                         completeButton.setVisibility(View.VISIBLE);
                         cancelButton.setVisibility(View.GONE);
-                    } else if (status.equals(STATUS_CANCELLED) || status.equals(STATUS_COMPLETED)) { // hide both buttons
+                    } else if (status.equals(NUMBER_STATUS_CANCELLED) || status.equals(NUMBER_STATUS_COMPLETED)) { // hide both buttons
                         completeButton.setVisibility(View.GONE);
                         cancelButton.setVisibility(View.GONE);
+                    }
+
+                    if (tableID != null) {
+                        tableIcon.setVisibility(View.VISIBLE);
+                        tableName.setVisibility(View.VISIBLE);
+                        loadTableName();
+                    } else {
+                        tableIcon.setVisibility(View.GONE);
+                        tableName.setVisibility(View.GONE);
                     }
                 }
             }
@@ -216,7 +221,7 @@ public class NumberDetailedActivity extends AppCompatActivity {
         //waitNumTable -1
         //toast
         DatabaseReference numberRef = mDatabase.child(NUMBER_CHILD).child(numberID);
-        numberRef.child(STATUS_CHILD).setValue(STATUS_CANCELLED);
+        numberRef.child(STATUS_CHILD).setValue(NUMBER_STATUS_CANCELLED);
 
         updateWaitlistInfo();
         Toast.makeText(NumberDetailedActivity.this, getString(R.string.cancel_succeed), Toast.LENGTH_SHORT).show();
@@ -259,6 +264,47 @@ public class NumberDetailedActivity extends AppCompatActivity {
         });
     }
 
+    private void showConfirmCompleteAlertDialog() {
+        String message = "Are you ready to check and let us clean " + tableName.getText() + "?";
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(NumberDetailedActivity.this);
+        builder.setMessage(message);
+        builder.setCancelable(false); // Disallow cancel of AlertDialog on click of back button and outside touch
+
+        builder.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        completeNumber();
+                    }
+                });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void completeNumber() {
+        //Update Table status: from Seated to Dirty
+        //set table's numberID to null
+        DatabaseReference tableRef = mDatabase.child(TABLE_CHILD).child(tableID);
+        tableRef.child(STATUS_CHILD).setValue(TABLE_STATUS_DIRTY);
+        tableRef.child(NUMBER_ID_CHILD).setValue(null);
+
+        //Update Number status: from Dining to Completed
+        //set number's tableID to null
+        DatabaseReference numberRef = mDatabase.child(NUMBER_CHILD).child(numberID);
+        numberRef.child(STATUS_CHILD).setValue(NUMBER_STATUS_COMPLETED);
+        numberRef.child(TABLE_ID_CHILD).setValue(null);
+
+        Toast.makeText(NumberDetailedActivity.this, "Number Completed and Table is under cleaning!", Toast.LENGTH_LONG).show();
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -281,19 +327,6 @@ public class NumberDetailedActivity extends AppCompatActivity {
 
             default:
                 return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (tableID != null) {
-            //show table views
-            tableIcon.setVisibility(View.VISIBLE);
-            tableName.setVisibility(View.VISIBLE);
-            //load table name
-            loadTableName();
         }
     }
 }
