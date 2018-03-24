@@ -234,12 +234,6 @@ public class GetNumberActivity extends AppCompatActivity {
         createNewNumberRecord(firstName, lastName);
         updateWaitlistNum();
         showConfirmPopupWindow();
-
-//        Query query = mDatabase.child(NUMBER_CHILD)
-//                .equalTo(restaurantID)
-//                .orderByChild("numberName")
-//                .startAt("A")
-//                .endAt("A" + "\uf8ff");
     }
 
     private void createNewNumberRecord(String firstName, String lastName) {
@@ -266,7 +260,7 @@ public class GetNumberActivity extends AppCompatActivity {
         SimpleDateFormat format = new SimpleDateFormat("EEEE, MMMM d, yyyy 'at' h:mm a");
         currentTime = format.format(Calendar.getInstance().getTime());
 
-        Number number = new Number(key, restaurantID, restaurantName, userID, username, phone, email, currentTime, numberName, partyNumber, "Waiting");
+        Number number = new Number(key, restaurantID, restaurantName, null, userID, username, phone, email, currentTime, numberName, partyNumber, "Waiting");
         numberRef.child(key).setValue(number);
         Toast.makeText(GetNumberActivity.this, "Number Created! ", Toast.LENGTH_SHORT).show();
     }

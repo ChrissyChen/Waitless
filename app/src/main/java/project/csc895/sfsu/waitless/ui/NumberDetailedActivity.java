@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -27,12 +28,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import project.csc895.sfsu.waitless.R;
 import project.csc895.sfsu.waitless.model.Number;
+import project.csc895.sfsu.waitless.model.Table;
 import project.csc895.sfsu.waitless.model.Waitlist;
 
 public class NumberDetailedActivity extends AppCompatActivity {
 
     private static final String NUMBER_CHILD = "numbers";
     private static final String WAITLIST_CHILD = "waitlists";
+    private static final String TABLE_CHILD = "tables";
     private static final String RESTAURANT_ID_CHILD = "restaurantID";
     private static final String STATUS_CHILD = "status";
     private static final String STATUS_WAITING = "Waiting";
@@ -47,9 +50,11 @@ public class NumberDetailedActivity extends AppCompatActivity {
     private TextView restaurantName, numberNameField, statusField, customerName, customerPhone, partyNumber, createdTime;
     private Button completeButton, cancelButton;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-    private String numberID, restaurantID, waitlistID;
+    private String numberID, restaurantID, waitlistID, tableID;
     private String numberName;
     private int waitNumTableA, waitNumTableB, waitNumTableC, waitNumTableD;
+    private TextView tableName;
+    private ImageView tableIcon;
 
 
     @Override
@@ -62,10 +67,20 @@ public class NumberDetailedActivity extends AppCompatActivity {
         //Number number = (Number) intent.getSerializableExtra(WaitlistHistoryFragment.EXTRA_NUMBER);  // get number obj
         numberID = intent.getStringExtra(WaitlistHistoryFragment.EXTRA_NUMBER_ID);
         restaurantID = intent.getStringExtra(WaitlistHistoryFragment.EXTRA_RESTAURANT_ID);
+        tableID = intent.getStringExtra(WaitlistHistoryFragment.EXTRA_TABLE_ID);  // if not null, indicate number is dining status.
+        // NOTE: get tableID both real time and got it as extra. May get changed
 
         initViews();
         loadNumberInfo();
         getWaitlistInfo();
+
+        if (tableID != null) {
+            //show table views
+            tableIcon.setVisibility(View.VISIBLE);
+            tableName.setVisibility(View.VISIBLE);
+            //load table name
+            loadTableName();
+        }
 
     }
 
@@ -74,6 +89,8 @@ public class NumberDetailedActivity extends AppCompatActivity {
         restaurantName = (TextView) findViewById(R.id.restaurant);
         numberNameField = (TextView) findViewById(R.id.number);
         statusField = (TextView) findViewById(R.id.status);
+        tableIcon = (ImageView) findViewById(R.id.tableIcon);
+        tableName = (TextView) findViewById(R.id.tableName);
         customerName = (TextView) findViewById(R.id.customerName);
         customerPhone = (TextView) findViewById(R.id.customerTelephone);
         partyNumber = (TextView) findViewById(R.id.customerPartyNumber);
@@ -106,10 +123,11 @@ public class NumberDetailedActivity extends AppCompatActivity {
                 if (number != null) {
                     String status = number.getStatus();
                     numberName = number.getNumberName();
-
                     restaurantName.setText(number.getRestaurantName());
-                    numberNameField.setText(numberName);
+                    String displayNumberName = "Number "+ numberName;
+                    numberNameField.setText(displayNumberName);
                     statusField.setText(status);
+                    tableID = number.getTableID();  // get tableID real time
                     customerName.setText(number.getUsername());
                     customerPhone.setText(number.getPhone());
                     partyNumber.setText(String.valueOf(number.getPartyNumber()));
@@ -221,6 +239,26 @@ public class NumberDetailedActivity extends AppCompatActivity {
         }
     }
 
+    private void loadTableName() {
+        DatabaseReference ref = mDatabase.child(TABLE_CHILD).child(tableID);
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Table table = dataSnapshot.getValue(Table.class);
+                if (table != null) {
+                    String displayTableName = "Table " + table.getTableName();
+                    tableName.setText(displayTableName);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -243,6 +281,19 @@ public class NumberDetailedActivity extends AppCompatActivity {
 
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (tableID != null) {
+            //show table views
+            tableIcon.setVisibility(View.VISIBLE);
+            tableName.setVisibility(View.VISIBLE);
+            //load table name
+            loadTableName();
         }
     }
 }

@@ -32,7 +32,7 @@ public class WaitlistHistoryFragment extends Fragment {
     private static final String ARGS_USER_ID = "userID";
     private static final String NUMBER_CHILD = "numbers";
     private static final String USER_ID_CHILD = "userID";
-    public final static String EXTRA_NUMBER = "Pass Number";
+    public final static String EXTRA_TABLE_ID = "Pass Table id";
     public final static String EXTRA_NUMBER_ID = "Pass Number id";
     public final static String EXTRA_RESTAURANT_ID = "Pass Restaurant id";
 
@@ -153,6 +153,7 @@ public class WaitlistHistoryFragment extends Fragment {
 
                     intent.putExtra(EXTRA_NUMBER_ID, number.getNumberID());// pass number id
                     intent.putExtra(EXTRA_RESTAURANT_ID, number.getRestaurantID());
+                    intent.putExtra(EXTRA_TABLE_ID, number.getTableID()); // if tableID != null, means number is dining status.
                     context.startActivity(intent);
                 }
             });
