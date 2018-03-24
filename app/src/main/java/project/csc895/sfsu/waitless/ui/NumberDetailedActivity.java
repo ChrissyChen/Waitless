@@ -1,23 +1,18 @@
 package project.csc895.sfsu.waitless.ui;
 
-import android.content.Context;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +46,6 @@ public class NumberDetailedActivity extends AppCompatActivity {
     private static final String WAIT_NUM_TABLE_B_CHILD = "waitNumTableB";
     private static final String WAIT_NUM_TABLE_C_CHILD = "waitNumTableC";
     private static final String WAIT_NUM_TABLE_D_CHILD = "waitNumTableD";
-    private LinearLayout mLinearLayout;
     private TextView restaurantName, numberNameField, statusField, customerName, customerPhone, partyNumber, createdTime;
     private Button completeButton, cancelButton;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -81,7 +75,6 @@ public class NumberDetailedActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        mLinearLayout = (LinearLayout) findViewById(R.id.numberDetailLinearLayout);
         restaurantName = (TextView) findViewById(R.id.restaurant);
         numberNameField = (TextView) findViewById(R.id.number);
         statusField = (TextView) findViewById(R.id.status);
@@ -103,8 +96,7 @@ public class NumberDetailedActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // popup window and trigger cancel the number
-                showCancelPopupWindow();
+                showConfirmCancelAlertDialog();
             }
         });
     }
@@ -120,7 +112,7 @@ public class NumberDetailedActivity extends AppCompatActivity {
                     String status = number.getStatus();
                     numberName = number.getNumberName();
                     restaurantName.setText(number.getRestaurantName());
-                    String displayNumberName = "Number "+ numberName;
+                    String displayNumberName = "Number " + numberName;
                     numberNameField.setText(displayNumberName);
                     statusField.setText(status);
                     tableID = number.getTableID();  // get tableID real time
@@ -169,7 +161,7 @@ public class NumberDetailedActivity extends AppCompatActivity {
                 if (!dataSnapshot.hasChildren()) {
                     Log.d("Error", "NO WAITLIST SHOWS");
                 } else {
-                    for (DataSnapshot objSnapshot: dataSnapshot.getChildren()) {
+                    for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
                         Waitlist waitlist = objSnapshot.getValue(Waitlist.class);
                         if (waitlist != null) {
                             waitlistID = waitlist.getWaitlistID();
@@ -190,30 +182,29 @@ public class NumberDetailedActivity extends AppCompatActivity {
         });
     }
 
-    private void showCancelPopupWindow() {
-        LayoutInflater inflater = (LayoutInflater) NumberDetailedActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (inflater != null) {
-            View customView = inflater.inflate(R.layout.popup_window_cancel, null);
-            final PopupWindow popupWindow = new PopupWindow(customView, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-            popupWindow.showAtLocation(mLinearLayout, Gravity.CENTER, 0, 0);
+    private void showConfirmCancelAlertDialog() {
+        String message = "Are you sure that you want to cancel the waitlist number?";
 
-            Button yesButton = (Button) customView.findViewById(R.id.yesButton);
-            Button noButton = (Button) customView.findViewById(R.id.noButton);
-            yesButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    cancelNumber();
-                    popupWindow.dismiss();
+        AlertDialog.Builder builder = new AlertDialog.Builder(NumberDetailedActivity.this);
+        builder.setMessage(message);
+        builder.setCancelable(false); // Disallow cancel of AlertDialog on click of back button and outside touch
 
-                }
-            });
-            noButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    popupWindow.dismiss();
-                }
-            });
-        }
+        builder.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        cancelNumber();
+                    }
+                });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void cancelNumber() {
