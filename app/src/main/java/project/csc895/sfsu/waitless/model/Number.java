@@ -12,13 +12,13 @@ public class Number {
     private String email;
     private String timeCreated;
     private String numberName; // based on tableSize, A1, B2...
-    private int partyNumber; //
+    private int partySize;
     private String status;   // waiting, dining, canceled, completed
 
     public Number() {
     }
 
-    public Number(String numberID, String restaurantID, String restaurantName, String tableID, String userID, String username, String phone, String email, String timeCreated, String numberName, int partyNumber, String status) {
+    public Number(String numberID, String restaurantID, String restaurantName, String tableID, String userID, String username, String phone, String email, String timeCreated, String numberName, int partySize, String status) {
         this.numberID = numberID;
         this.restaurantID = restaurantID;
         this.restaurantName = restaurantName;
@@ -29,7 +29,7 @@ public class Number {
         this.email = email;
         this.timeCreated = timeCreated;
         this.numberName = numberName;
-        this.partyNumber = partyNumber;
+        this.partySize = partySize;
         this.status = status;
     }
 
@@ -113,12 +113,12 @@ public class Number {
         this.numberName = numberName;
     }
 
-    public int getPartyNumber() {
-        return partyNumber;
+    public int getPartySize() {
+        return partySize;
     }
 
-    public void setPartyNumber(int partyNumber) {
-        this.partyNumber = partyNumber;
+    public void setPartySize(int partySize) {
+        this.partySize = partySize;
     }
 
     public String getStatus() {
