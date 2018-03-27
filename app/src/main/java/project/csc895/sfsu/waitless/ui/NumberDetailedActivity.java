@@ -47,7 +47,7 @@ public class NumberDetailedActivity extends AppCompatActivity {
     private static final String WAIT_NUM_TABLE_C_CHILD = "waitNumTableC";
     private static final String WAIT_NUM_TABLE_D_CHILD = "waitNumTableD";
     private TextView restaurantName, numberNameField, statusField, customerName, customerPhone, partySize, createdTime;
-    private Button completeButton, cancelButton;
+    private Button completeButton, cancelButton, deleteButton;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private String numberID, restaurantID, waitlistID, tableID;
     private String numberName;
@@ -87,6 +87,7 @@ public class NumberDetailedActivity extends AppCompatActivity {
 
         completeButton = (Button) findViewById(R.id.completeButton);
         cancelButton = (Button) findViewById(R.id.cancelButton);
+        deleteButton = (Button) findViewById(R.id.deleteButton);
         completeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,6 +98,12 @@ public class NumberDetailedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showConfirmCancelAlertDialog();
+            }
+        });
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showConfirmDeleteAlertDialog();
             }
         });
     }
@@ -121,13 +128,16 @@ public class NumberDetailedActivity extends AppCompatActivity {
                     partySize.setText(String.valueOf(number.getPartySize()));
                     createdTime.setText(number.getTimeCreated());
 
-                    if (status.equals(NUMBER_STATUS_WAITING)) {         //show cancel button. hide complete button
-                        completeButton.setVisibility(View.GONE);
+                    if (status.equals(NUMBER_STATUS_WAITING)) {         //show cancel button. hide complete and delete button
                         cancelButton.setVisibility(View.VISIBLE);
-                    } else if (status.equals(NUMBER_STATUS_DINING)) {   // show complete button. hide cancel button
+                        completeButton.setVisibility(View.GONE);
+                        deleteButton.setVisibility(View.GONE);
+                    } else if (status.equals(NUMBER_STATUS_DINING)) {   // show complete button. hide cancel and delete button
                         completeButton.setVisibility(View.VISIBLE);
                         cancelButton.setVisibility(View.GONE);
-                    } else if (status.equals(NUMBER_STATUS_CANCELLED) || status.equals(NUMBER_STATUS_COMPLETED)) { // hide both buttons
+                        deleteButton.setVisibility(View.GONE);
+                    } else if (status.equals(NUMBER_STATUS_CANCELLED) || status.equals(NUMBER_STATUS_COMPLETED)) { // show delete button. hide cancel and complete buttons
+                        deleteButton.setVisibility(View.VISIBLE);
                         completeButton.setVisibility(View.GONE);
                         cancelButton.setVisibility(View.GONE);
                     }
@@ -220,16 +230,16 @@ public class NumberDetailedActivity extends AppCompatActivity {
 
     private void updateWaitlistInfo() {
         DatabaseReference ref = mDatabase.child(WAITLIST_CHILD).child(waitlistID);
-        if (numberName.charAt(0) == 'A') {
+        if (numberName.charAt(2) == 'A') {
             waitNumTableA -= 1;
             ref.child(WAIT_NUM_TABLE_A_CHILD).setValue(waitNumTableA);
-        } else if (numberName.charAt(0) == 'B') {
+        } else if (numberName.charAt(2) == 'B') {
             waitNumTableB -= 1;
             ref.child(WAIT_NUM_TABLE_B_CHILD).setValue(waitNumTableB);
-        } else if (numberName.charAt(0) == 'C') {
+        } else if (numberName.charAt(2) == 'C') {
             waitNumTableC -= 1;
             ref.child(WAIT_NUM_TABLE_C_CHILD).setValue(waitNumTableC);
-        } else if (numberName.charAt(0) == 'D') {
+        } else if (numberName.charAt(2) == 'D') {
             waitNumTableD -= 1;
             ref.child(WAIT_NUM_TABLE_D_CHILD).setValue(waitNumTableD);
         }
@@ -294,6 +304,38 @@ public class NumberDetailedActivity extends AppCompatActivity {
         numberRef.child(TABLE_ID_CHILD).setValue(null);
 
         Toast.makeText(NumberDetailedActivity.this, "Number Completed and Table is under cleaning!", Toast.LENGTH_LONG).show();
+    }
+
+    private void showConfirmDeleteAlertDialog() {
+        String message = "Are you sure to delete Number " + numberName + "?";
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(NumberDetailedActivity.this);
+        builder.setMessage(message);
+        builder.setCancelable(false); // Disallow cancel of AlertDialog on click of back button and outside touch
+
+        builder.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteNumber();
+                        onBackPressed();
+                    }
+                });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void deleteNumber() {
+        DatabaseReference numberRef = mDatabase.child(NUMBER_CHILD).child(numberID);
+        numberRef.removeValue();
+        Toast.makeText(NumberDetailedActivity.this, "Number has been deleted!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

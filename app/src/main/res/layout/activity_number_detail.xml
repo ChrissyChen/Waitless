@@ -217,4 +217,15 @@
         android:textStyle="bold"
         android:text="@string/cancel" />
 
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/lightGrey"
+        android:textStyle="bold"
+        android:text="@string/delete" />
+
 </LinearLayout>
