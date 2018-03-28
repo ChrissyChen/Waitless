@@ -259,7 +259,7 @@ public class GetNumberActivity extends AppCompatActivity {
         SimpleDateFormat format = new SimpleDateFormat("EEEE, MMMM d, yyyy 'at' h:mm a");
         currentTime = format.format(Calendar.getInstance().getTime());
 
-        Number number = new Number(key, restaurantID, restaurantName, null, userID, username, phone, email, currentTime, numberName, partySize, "Waiting");
+        Number number = new Number(key, restaurantID, restaurantName, null, userID, username, phone, email, currentTime, numberName, partySize, "Waiting", false);
         numberRef.child(key).setValue(number);
         Toast.makeText(GetNumberActivity.this, "Number Created! ", Toast.LENGTH_SHORT).show();
     }
