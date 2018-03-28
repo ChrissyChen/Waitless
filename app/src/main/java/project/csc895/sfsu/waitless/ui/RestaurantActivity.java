@@ -57,7 +57,7 @@ public class RestaurantActivity extends AppCompatActivity {
         /* Pass a restaurant object. but the obj info will get changed at real time. eg available tables. so change to pass id */
         //Restaurant restaurant = (Restaurant)intent.getSerializableExtra(SearchActivity.EXTRA_RESTAURANT);
         //Log.d(TAG, restaurant.toString());
-        restaurantID = intent.getStringExtra(SearchActivity.EXTRA_RESTAURANT_ID);
+        restaurantID = intent.getStringExtra(SearchActivity.EXTRA_RESTAURANT_ID);  //get from search activity or home fragment hot restaurants
         Log.d(TAG + " ID:", restaurantID);
 
         initViews();
