@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import project.csc895.sfsu.waitless.R;
 import project.csc895.sfsu.waitless.model.Restaurant;
@@ -39,6 +40,7 @@ public class SignupActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
+    private String tokenFCM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,10 @@ public class SignupActivity extends AppCompatActivity {
 
         //Get Firebase mFirebaseAuth instance
         mFirebaseAuth = FirebaseAuth.getInstance();
+
+        //Get FCM registered token
+        tokenFCM = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "Refreshed token: " + tokenFCM);
 
         btnSignIn = (Button) findViewById(R.id.sign_in_button);
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
@@ -152,7 +158,7 @@ public class SignupActivity extends AppCompatActivity {
             String key = ref.push().getKey();
             Log.d("key:  ", key); // generated random id
 
-            User user = new User(key, firstName, lastName, phone, email);
+            User user = new User(key, firstName, lastName, phone, email, tokenFCM);
             ref.child(key).setValue(user);
         }
 
