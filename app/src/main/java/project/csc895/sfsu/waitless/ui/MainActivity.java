@@ -17,7 +17,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -25,13 +24,13 @@ import android.widget.TextView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import project.csc895.sfsu.waitless.R;
 import project.csc895.sfsu.waitless.model.User;
@@ -42,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String USER_CHILD = "users";
     private static final String EMAIL_CHILD = "email";
     private static final String ARGS_USER_ID = "userID";
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
+    private static final String TOKEN_FCM_CHILD = "tokenFCM";
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private FirebaseAuth mFirebaseAuth;
     private DrawerLayout mDrawerLayout;
     private TextView drawerName, drawerEmail;
     private String userID;
@@ -54,10 +53,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        //get email and restaurantID either from Splash Activity or Login Activity
+        Intent intent = getIntent();
+        String email = intent.getStringExtra(SplashActivity.EXTRA_EMAIL);
+        userID = intent.getStringExtra(SplashActivity.EXTRA_USER_ID);
+        Log.d(TAG, "user ID passed from splash or login" + userID);// sometimes null. todo load id here
 
-        Log.d(TAG + " UserEmail", mFirebaseUser.getEmail());
+        //Get Firebase mFirebaseAuth instance
+        mFirebaseAuth = FirebaseAuth.getInstance();
 
         //setupBottomNavigationView();
 
@@ -80,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         drawerEmail = (TextView) navHeader.findViewById(R.id.drawer_email);
 
         // Load name and email in drawer header and get userID
-        loadUserInfo(mFirebaseUser.getEmail());
+        loadUserInfo(email);
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -101,6 +104,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+//        // Get updated InstanceID token.
+//        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+//        Log.d(TAG, "Token: " + refreshedToken);
+//        Log.d(TAG, "user ID: " + userID);
+//        if (userID != null && refreshedToken != null) {
+//            DatabaseReference userRef = mDatabase.child(USER_CHILD).child(userID);
+//            userRef.child(TOKEN_FCM_CHILD).setValue(refreshedToken);
+//            Log.d(TAG, "update token");
+//        }
     }
 
     private void loadUserInfo(String email) {
@@ -118,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                         User user = objSnapshot.getValue(User.class);
                         if (user != null) {
                             userID = user.getUserID();
-                            Log.d("userID", userID);
+                            Log.d(TAG, "user id inside callback" + userID);
                             String firstName = user.getFirstName();
                             String lastName = user.getLastName();
                             String name = firstName + " " + lastName;
