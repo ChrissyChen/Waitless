@@ -13,6 +13,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private TextView drawerName, drawerEmail;
     private String userID;
+    private String dataTitle, dataMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,13 @@ public class MainActivity extends AppCompatActivity {
         String email = intent.getStringExtra(SplashActivity.EXTRA_EMAIL);
         userID = intent.getStringExtra(SplashActivity.EXTRA_USER_ID);
         Log.d(TAG, "user ID passed from splash or login" + userID);// sometimes null. todo load id here
+
+//        // get notification extra from splash activity
+//        dataTitle = intent.getStringExtra("title");
+//        dataMessage = intent.getStringExtra("message");
+//        if (dataTitle != null && dataMessage != null) {
+//            showAlertDialog();
+//        }
 
         //Get Firebase mFirebaseAuth instance
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -104,15 +113,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-//        // Get updated InstanceID token.
-//        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-//        Log.d(TAG, "Token: " + refreshedToken);
-//        Log.d(TAG, "user ID: " + userID);
-//        if (userID != null && refreshedToken != null) {
-//            DatabaseReference userRef = mDatabase.child(USER_CHILD).child(userID);
-//            userRef.child(TOKEN_FCM_CHILD).setValue(refreshedToken);
-//            Log.d(TAG, "update token");
-//        }
+        // Get updated InstanceID token.
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "Token: " + refreshedToken);
+        Log.d(TAG, "user ID: " + userID);
+        if (userID != null && refreshedToken != null) {
+            DatabaseReference userRef = mDatabase.child(USER_CHILD).child(userID);
+            userRef.child(TOKEN_FCM_CHILD).setValue(refreshedToken);
+            Log.d(TAG, "update token");
+        }
     }
 
     private void loadUserInfo(String email) {
@@ -126,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!dataSnapshot.hasChildren()) {
                     Log.d(TAG, "NO USER FOUND!");
                 } else {
-                    for (DataSnapshot objSnapshot: dataSnapshot.getChildren()) {
+                    for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
                         User user = objSnapshot.getValue(User.class);
                         if (user != null) {
                             userID = user.getUserID();
@@ -241,8 +250,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean isGooglePlayServicesAvailable(Activity activity) {
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
         int status = googleApiAvailability.isGooglePlayServicesAvailable(activity);
-        if(status != ConnectionResult.SUCCESS) {
-            if(googleApiAvailability.isUserResolvableError(status)) {
+        if (status != ConnectionResult.SUCCESS) {
+            if (googleApiAvailability.isUserResolvableError(status)) {
                 googleApiAvailability.getErrorDialog(activity, status, 2404).show();
             }
             return false;
@@ -272,4 +281,14 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+//    private void showAlertDialog() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setCancelable(false);
+//        builder.setTitle(dataTitle);
+//        builder.setMessage(dataMessage);
+//        builder.setPositiveButton("OK", null);
+//        AlertDialog alertDialog = builder.create();
+//        alertDialog.show();
+//    }
 }
