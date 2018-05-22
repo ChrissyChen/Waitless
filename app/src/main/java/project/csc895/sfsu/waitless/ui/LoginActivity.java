@@ -3,6 +3,7 @@ package project.csc895.sfsu.waitless.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -18,18 +19,30 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import project.csc895.sfsu.waitless.R;
 
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "Login Activity";
+    private static final String USER_CHILD = "users";
+    private static final String EMAIL_CHILD = "email";
+    public final static String EXTRA_USER_ID = "Pass User id";
+    public final static String EXTRA_EMAIL = "Pass User email";
+    private static int SPLASH_TIME_OUT = 3000;  // Splash screen timer
     private EditText inputEmail, inputPassword;
     private FirebaseAuth auth;
     private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset;
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +59,6 @@ public class LoginActivity extends AppCompatActivity {
         pref = getApplicationContext().getSharedPreferences("CachedResponse", 0);
         editor = pref.edit();
         editor.apply();
-
 
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
@@ -107,6 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                     }
                                 } else {
+                                    loadUserIDWithEmail(email);
                                     checkIfEmailVerified(email);
                                 }
                             }
@@ -115,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void checkIfEmailVerified(String email)
+    private void checkIfEmailVerified(final String email)
     {
         FirebaseUser user = auth.getCurrentUser();
 
@@ -129,10 +142,18 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("loginEmail", email);
                 editor.apply();
 
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("Email", email);
-                startActivity(intent);
-                finish();
+                // delay in order to get userID
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // This method will be executed once the timer is over. Start the MainActivity
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra(EXTRA_EMAIL, email);
+                        intent.putExtra(EXTRA_USER_ID, userID);
+                        startActivity(intent);
+                        finish();
+                    }
+                }, SPLASH_TIME_OUT); // Showing splash screen with a timer
             }
             else
             {
@@ -145,5 +166,31 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    private void loadUserIDWithEmail(String email) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        Query query = mDatabase.child(USER_CHILD)
+                .orderByChild(EMAIL_CHILD)
+                .equalTo(email);
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // show no result view
+                if (!dataSnapshot.hasChildren()) {
+                    Log.d(TAG, "NO USER FOUND!");
+                } else {
+                    for (DataSnapshot objSnapshot: dataSnapshot.getChildren()) {
+                        userID = objSnapshot.getKey();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

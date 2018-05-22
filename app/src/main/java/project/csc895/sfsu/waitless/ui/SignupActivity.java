@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import project.csc895.sfsu.waitless.R;
 import project.csc895.sfsu.waitless.model.Restaurant;
@@ -38,7 +40,7 @@ public class SignupActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private String tokenFCM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +52,16 @@ public class SignupActivity extends AppCompatActivity {
         //Get Firebase mFirebaseAuth instance
         mFirebaseAuth = FirebaseAuth.getInstance();
 
+        //Get FCM registered token
+        tokenFCM = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "Refreshed token: " + tokenFCM);
+
         btnSignIn = (Button) findViewById(R.id.sign_in_button);
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
         inputFirstName = (EditText) findViewById(R.id.first_name);
         inputLastName = (EditText) findViewById(R.id.last_name);
         inputPhone = (EditText) findViewById(R.id.user_phone);
+        inputPhone.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -151,7 +158,7 @@ public class SignupActivity extends AppCompatActivity {
             String key = ref.push().getKey();
             Log.d("key:  ", key); // generated random id
 
-            User user = new User(firstName, lastName, phone, email);
+            User user = new User(key, firstName, lastName, phone, email, tokenFCM);
             ref.child(key).setValue(user);
         }
 

@@ -2,12 +2,17 @@ package project.csc895.sfsu.waitless.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,13 +21,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import project.csc895.sfsu.waitless.R;
 import project.csc895.sfsu.waitless.model.Restaurant;
@@ -30,7 +40,7 @@ import project.csc895.sfsu.waitless.model.Restaurant;
 public class SearchActivity extends AppCompatActivity {
 
     private static final String TAG = "Search Activity";
-    public final static String EXTRA_RESTAURANT = "Pass Restaurant";
+    public final static String EXTRA_RESTAURANT_ID = "Pass Restaurant ID";
     public static final String RESTAURANT_CHILD = "restaurants";
     public static final String CUISINE_CHILD = "cuisine";
     public static final String NAME_CHILD = "name";
@@ -42,6 +52,8 @@ public class SearchActivity extends AppCompatActivity {
     private Button mSearchButton;
     private TextView mNoResultTextView;
     private String queryText;
+    private static FirebaseStorage sStorage = FirebaseStorage.getInstance();
+    private static Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +66,7 @@ public class SearchActivity extends AppCompatActivity {
         searchLinearLayout.setFocusable(true);    // set editText not on focus
         searchLinearLayout.setFocusableInTouchMode(true);
 
+        mContext = this.getApplicationContext();
         mRecyclerView = (RecyclerView) findViewById(R.id.restaurantList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mNoResultTextView = (TextView) findViewById(R.id.noResult);
@@ -97,10 +110,14 @@ public class SearchActivity extends AppCompatActivity {
                 query) {
             @Override
             protected void populateViewHolder(RestaurantViewHolder viewHolder, Restaurant restaurant, int position) {
-                //// TODO: 9/25/17 image
                 Log.d(TAG, "Search By Cuisine: inside adapter");
                 if (restaurant.getCuisine().contains(queryText)) {
                     Log.d(TAG, "Search By Cuisine: contains searched cuisine" );
+
+                    String imageUrl = restaurant.getImageUrl();
+                    if (imageUrl != null) {
+                        viewHolder.setImage(imageUrl);
+                    }
                     viewHolder.setName(restaurant.getName());
                     viewHolder.setCuisine(restaurant.getCuisine());
                     Log.d(TAG, "Search By Cuisine: set done" );
@@ -159,7 +176,10 @@ public class SearchActivity extends AppCompatActivity {
                 query) {
             @Override
             protected void populateViewHolder(RestaurantViewHolder viewHolder, Restaurant restaurant, int position) {
-                //// TODO: 9/25/17 image
+                String imageUrl = restaurant.getImageUrl();
+                if (imageUrl != null) {
+                    viewHolder.setImage(imageUrl);
+                }
                 viewHolder.setName(restaurant.getName());
                 viewHolder.setCuisine(restaurant.getCuisine());
 
@@ -210,8 +230,21 @@ public class SearchActivity extends AppCompatActivity {
             mCardView = (CardView) itemView.findViewById(R.id.briefInfoCardView);
         }
 
-        public void setImage() {
-            //// TODO: 9/25/17
+        public void setImage(String imageUrl) {
+            final StorageReference gsReference = sStorage.getReferenceFromUrl(imageUrl);
+            gsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Glide.with(getAppContext())
+                            .load(uri)
+                            .into(mImageField);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Log.e(TAG, "Could not load image for message", exception);
+                }
+            });
         }
 
         public void setName(String name) {
@@ -228,13 +261,18 @@ public class SearchActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, RestaurantActivity.class);
-                    intent.putExtra(EXTRA_RESTAURANT, restaurant);
+                    String restaurantID = restaurant.getRestaurantID();
+                    intent.putExtra(EXTRA_RESTAURANT_ID, restaurantID);
+                    //intent.putExtra(EXTRA_RESTAURANT, restaurant); // pass restaurant obj
                     context.startActivity(intent);
                 }
             });
         }
     }
 
+    public static Context getAppContext(){
+        return mContext;
+    }
 
     @Override
     public void onBackPressed() {
@@ -247,6 +285,25 @@ public class SearchActivity extends AppCompatActivity {
         super.onDestroy();
         if (mAdapter != null) {
             mAdapter.cleanup();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.top_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.homeAction:
+                startActivity(new Intent(SearchActivity.this, MainActivity.class));
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
